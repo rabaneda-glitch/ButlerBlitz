@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MomentumScript : MonoBehaviour
 {
-    float qtyMmt = 100f;
+    float qtyMmt = 0f;
 
     float decr = 5f;
 
@@ -14,22 +14,45 @@ public class MomentumScript : MonoBehaviour
 
     bool isDecreasing = true;
 
+    float ultimoNivel = 0f;
+    int conteoSeguidas = 0;
+
     void Update()
     {
-        if (isDecreasing) qtyMmt = qtyMmt - decr * Time.deltaTime;
-        
+        if (isDecreasing)
+            qtyMmt = qtyMmt - decr * Time.deltaTime;
 
-        
+        Decrecer();
+    }
+
+    void Decrecer()
+    {
         if (decr == 2.5f && qtyMmt <= 10)
         {
             qtyMmt = 10;
-            isDecreasing = false;
         }
         if (decr == 5 && qtyMmt <= 0)
         {
             qtyMmt = 0;
-            isDecreasing = false;
         }
+    }
+
+    void Aumentar(float nivel)
+    {
+        qtyMmt += nivel;
+
+        print("Último nivel: " + ultimoNivel + " Nivel: " + nivel);
+
+        if (nivel > 10 && ultimoNivel > 10)
+        {
+            qtyMmt += comboMmt;
+            print("Combo +15pt");
+        }
+        
+        ultimoNivel = nivel;
+
+        if (qtyMmt > 100f)
+            qtyMmt = 100f;
     }
 
     void OnGUI()
@@ -64,18 +87,22 @@ public class MomentumScript : MonoBehaviour
         //Botones de niveles
         if (GUI.Button(new Rect(20, 170, 100, 50), "Bajo"))
         {
+            Aumentar(bajoMmt);
             print("Nivel bajo");
         }
         if (GUI.Button(new Rect(20 + 120, 170, 100, 50), "Medio"))
         {
+            Aumentar(medioMmt);
             print("Nivel medio");
         }
         if (GUI.Button(new Rect(20 + (120 * 2), 170, 100, 50), "Alto"))
         {
+            Aumentar(altoMmt);
             print("Nivel alto");
         }
         if (GUI.Button(new Rect(20 + (120 * 3), 170, 100, 50), "Muy alto"))
         {
+            Aumentar(mAltoMmt);
             print("Nivel muy alto");
         }
     }
