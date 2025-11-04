@@ -12,11 +12,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     private float moveSpeed;
     public float walkSpeed;
-
     public float sprintSpeed;
     public float slideSpeed;
-
-    public float wallrunSpeed;
 
     private float desiredMoveSpeed;
     private float lastDesiredMoveSpeed;
@@ -69,7 +66,6 @@ public class PlayerMovement : MonoBehaviour
         walking,
         crouching,
         sprinting,
-        wallrunning,
         sliding,
         dashing,
         air
@@ -77,7 +73,6 @@ public class PlayerMovement : MonoBehaviour
 
     public bool sliding;
     public bool dashing;
-    public bool wallrunning;
 
     private MovementState lastState;
     private float speedChangeFactor;
@@ -142,15 +137,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void StateHandler()
     {
-        //Carrera vertical
-        if (wallrunning)
-        {
-            state = MovementState.wallrunning;
-            desiredMoveSpeed = wallrunSpeed;
-        }
-        
         //Deslizarse
-        else if (sliding)
+        if (sliding)
         {
             state = MovementState.sliding;
 
@@ -263,8 +251,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Desactivar gravedad en pediente
-        if (!wallrunning)
-            rb.useGravity = !OnSlope();
+        rb.useGravity = !OnSlope();
 
         //En el suelo
         if (grounded) 
