@@ -241,7 +241,6 @@ GameObject:
   - component: {fileID: 94965342}
   - component: {fileID: 94965343}
   - component: {fileID: 94965344}
-  - component: {fileID: 94965345}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -309,7 +308,6 @@ MonoBehaviour:
   walkSpeed: 7
   sprintSpeed: 10
   slideSpeed: 30
-  wallrunSpeed: 8.5
   dashSpeed: 20
   dashSpeedChangeFactor: 50
   maxYSpeed: 0
@@ -331,7 +329,6 @@ MonoBehaviour:
   state: 0
   sliding: 0
   dashing: 0
-  wallrunning: 0
 --- !u!114 &94965343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,39 +370,7 @@ MonoBehaviour:
   maxSlideTime: 0.75
   slideForce: 200
   slideYScale: 0.5
-  slideKey: 97
---- !u!114 &94965345
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 94965339}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 662029b27c5da7c4b89cf450fb6301d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  whatIsWall:
-    serializedVersion: 2
-    m_Bits: 512
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 1024
-  wallRunForce: 200
-  wallJumpUpForce: 7
-  wallJumpSideForce: 12
-  wallClimbSpeed: 3
-  maxWallRunTime: 1
-  jumpKey: 32
-  upwardsRunKey: 304
-  downwardsRunKey: 306
-  wallCheckDistance: 1.7
-  minJumpHeight: 2
-  exitWallTime: 0.2
-  useGravity: 1
-  gravityCounterForce: 6
-  orientation: {fileID: 1622132577}
+  slideKey: 306
 --- !u!1 &211469867
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,7 +493,7 @@ GameObject:
   - component: {fileID: 240899007}
   - component: {fileID: 240899006}
   - component: {fileID: 240899005}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -928,7 +893,7 @@ GameObject:
   - component: {fileID: 795489789}
   - component: {fileID: 795489788}
   - component: {fileID: 795489787}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1033,7 +998,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 938348972}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1117,7 +1082,7 @@ GameObject:
   - component: {fileID: 1410381696}
   - component: {fileID: 1410381695}
   - component: {fileID: 1410381694}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1289,7 +1254,7 @@ GameObject:
   - component: {fileID: 2072467608}
   - component: {fileID: 2072467607}
   - component: {fileID: 2072467606}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
