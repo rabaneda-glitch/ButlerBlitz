@@ -148,7 +148,7 @@ public partial class @ToolControl: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""73e4dfb6-394d-4c8d-9e8a-852d54339c26"",
+                    ""id"": ""f7791786-81a4-41c8-8bb1-e4feb64535be"",
                     ""path"": ""<Mouse>/scroll/y"",
                     ""interactions"": """",
                     ""processors"": """",
