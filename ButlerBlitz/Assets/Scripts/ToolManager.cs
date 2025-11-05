@@ -4,12 +4,14 @@ public class ToolManager : MonoBehaviour
 {
     public static ToolManager Instance { get; private set; }
 
-    //Define los tipos de herramienta que el jugador puede usar
     public enum Tool { Vacuum = 1, Sponge = 2, Duster = 3, Mop = 4 }
-    public Tool currentTool = Tool.Vacuum; //Por defecto Vacuum
+    public Tool currentTool = Tool.Vacuum;
 
-    [Header("Referencia al script que muestra la herramienta en cámara")]
+    [Header("Referencias")]
     public ToolDisplay toolDisplay;
+    public Transform toolHolder; // punto en la cámara donde van las herramientas
+
+    private GameObject currentToolInstance;
 
     void Awake()
     {
@@ -22,20 +24,46 @@ public class ToolManager : MonoBehaviour
     }
 
     public void SetTool(Tool newTool)
-    { //Cambia la herramienta activa a una nueva
-
+    {
         if (currentTool == newTool) return;
         currentTool = newTool;
 
-        // Mostrar la herramienta visualmente
         if (toolDisplay != null)
             toolDisplay.ShowTool(currentTool);
 
         Debug.Log("Herramienta actual: " + currentTool);
     }
 
+    // Este método lo usa ToolDisplay para colocar la herramienta según su GripPoint
+    public void EquipTool(GameObject newToolPrefab)
+    {
+        if (currentToolInstance != null)
+            Destroy(currentToolInstance);
+
+        currentToolInstance = Instantiate(newToolPrefab);
+
+        Transform gripPoint = currentToolInstance.transform.Find("GripPoint");
+
+        if (gripPoint != null && toolHolder != null)
+        {
+            // Primero la hacemos hija temporalmente del ToolHolder
+            currentToolInstance.transform.SetParent(toolHolder, false);
+
+            // Ahora aplicamos la alineación para que el GripPoint encaje perfectamente
+            currentToolInstance.transform.localPosition = -gripPoint.localPosition;
+            currentToolInstance.transform.localRotation = Quaternion.Inverse(gripPoint.localRotation);
+        }
+        else
+        {
+            // Fallback: si no tiene GripPoint, simplemente la colocamos al centro
+            currentToolInstance.transform.SetParent(toolHolder, false);
+            currentToolInstance.transform.localPosition = Vector3.zero;
+            currentToolInstance.transform.localRotation = Quaternion.identity;
+        }
+    }
+
     public bool IsCorrectToolFor(Stain stain)
-    { //Comprueba si la herramienta activa es la correcta para el tipo de mancha
+    {
         if (stain == null) return false;
 
         switch (stain.type)
