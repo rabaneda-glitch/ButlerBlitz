@@ -2,57 +2,71 @@ using UnityEngine;
 
 public class MomentumScript : MonoBehaviour
 {
-    float qtyMmt = 0f;
+    public static MomentumScript Instance; // Singleton simple
 
-    float decr = 5f;
+    [SerializeField] float qtyMmt = 0f;
+    [SerializeField] float decr = 5f;
 
-    float bajoMmt = 10f,
+    public float bajoMmt = 10f,
         medioMmt = 20f,
         altoMmt = 30f,
         mAltoMmt = 40f,
         comboMmt = 15f;
 
     bool isDecreasing = true;
-
     float ultimoNivel = 0f;
-    int conteoSeguidas = 0;
+
+    void Awake()
+    {
+        // Asegurar una sola instancia
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+    }
 
     void Update()
     {
         if (isDecreasing)
-            qtyMmt = qtyMmt - decr * Time.deltaTime;
+            qtyMmt -= decr * Time.deltaTime;
 
         Decrecer();
+
+        if (qtyMmt <= 0)
+        {
+            qtyMmt = 0;
+            GameOver();
+        }
     }
 
     void Decrecer()
     {
         if (decr == 2.5f && qtyMmt <= 10)
-        {
             qtyMmt = 10;
-        }
         if (decr == 5 && qtyMmt <= 0)
-        {
             qtyMmt = 0;
-        }
     }
 
-    void Aumentar(float nivel)
+    public void Aumentar(float nivel)
     {
         qtyMmt += nivel;
-
-        print("Último nivel: " + ultimoNivel + " Nivel: " + nivel);
 
         if (nivel > 10 && ultimoNivel > 10)
         {
             qtyMmt += comboMmt;
-            print("Combo +15pt");
+            Debug.Log("Combo +15pt");
         }
-        
+
         ultimoNivel = nivel;
 
         if (qtyMmt > 100f)
             qtyMmt = 100f;
+    }
+
+    void GameOver()
+    {
+        Debug.Log("❌ Momentum = 0 → Game Over");
+        // Aquí puedes pausar el juego, cambiar de escena, etc.
     }
 
     void OnGUI()
@@ -106,4 +120,10 @@ public class MomentumScript : MonoBehaviour
             print("Nivel muy alto");
         }
     }
+
+    public float GetMomentum() => qtyMmt;
 }
+
+
+    
+

@@ -8,22 +8,22 @@ public class MenuScript : MonoBehaviour
     {
         Main,
         Levels,
+        Options,
+        Credits,
     };
 
     public GameObject mainMenu;
     public GameObject levelMenu;
+    public GameObject optionsMenu;
+    public GameObject creditsMenu;
 
     void Start()
     {
         currentState = mainMenu;
         mainMenu.SetActive(true);
         levelMenu.SetActive(false);
-    }
-
-    public void levels()
-    {
-        Debug.Log("levels selected");
-        switchMenu(MenuStates.Levels);
+        optionsMenu.SetActive(false);
+        creditsMenu.SetActive(false);
     }
 
     public void back()
@@ -31,6 +31,24 @@ public class MenuScript : MonoBehaviour
         Debug.Log("back to main menu");
         switchMenu(MenuStates.Main);
     }
+
+    public void levels()
+    {
+        Debug.Log("levels selected");
+        switchMenu(MenuStates.Levels);
+    }
+    public void options()
+    {
+        Debug.Log("options selected");
+        switchMenu(MenuStates.Options);
+    }
+    public void credits()
+    {
+        Debug.Log("credits selected");
+        switchMenu(MenuStates.Credits);
+    }
+
+
 
     public void switchMenu(MenuStates menu)
     {
@@ -43,6 +61,12 @@ public class MenuScript : MonoBehaviour
                 break;
             case MenuStates.Levels:
                 newState = levelMenu;
+                break;
+            case MenuStates.Options:
+                newState = optionsMenu;
+                break;
+            case MenuStates.Credits:
+                newState = creditsMenu;
                 break;
             default:
                 newState = mainMenu;

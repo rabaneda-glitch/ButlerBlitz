@@ -1,7 +1,7 @@
-using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class WallRunning : MonoBehaviour
@@ -69,8 +69,20 @@ public class WallRunning : MonoBehaviour
 
     private void CheckForWall()
     {
-        wallRight = Physics.Raycast(transform.position, orientation.right, out rightWallhit, wallCheckDistance, whatIsWall);
-        wallLeft = Physics.Raycast(transform.position, -orientation.right, out leftWallhit, wallCheckDistance, whatIsWall);
+        wallRight = Physics.Raycast(
+            transform.position,
+            orientation.right,
+            out rightWallhit,
+            wallCheckDistance,
+            whatIsWall
+        );
+        wallLeft = Physics.Raycast(
+            transform.position,
+            -orientation.right,
+            out leftWallhit,
+            wallCheckDistance,
+            whatIsWall
+        );
     }
 
     private bool AboveGround()
@@ -104,7 +116,6 @@ public class WallRunning : MonoBehaviour
             if (Input.GetKeyDown(jumpKey))
                 WallJump();
         }
-
         //Saliendo
         else if (exitingWall)
         {
@@ -117,14 +128,12 @@ public class WallRunning : MonoBehaviour
             if (exitWallTimer <= 0)
                 exitingWall = false;
         }
-
         //NO Carrera vertical
         else
         {
             if (pm.wallrunning)
                 StopWallRun();
         }
-
     }
 
     private void StartWallRun()
@@ -134,16 +143,24 @@ public class WallRunning : MonoBehaviour
         wallRunTimer = maxWallRunTime;
 
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+        if (MomentumScript.Instance != null)
+        {
+            MomentumScript.Instance.Aumentar(MomentumScript.Instance.altoMmt);
+            Debug.Log("Wallrun: +30 momentum");
+        }
     }
 
     private void WallRunningMovement()
     {
         rb.useGravity = useGravity;
-        
+
         Vector3 wallNormal = wallRight ? rightWallhit.normal : leftWallhit.normal;
         Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
 
-        if ((orientation.forward - wallForward).magnitude > (orientation.forward - -wallForward).magnitude)
+        if (
+            (orientation.forward - wallForward).magnitude
+            > (orientation.forward - -wallForward).magnitude
+        )
             wallForward = -wallForward;
 
         //Recto
@@ -151,10 +168,18 @@ public class WallRunning : MonoBehaviour
 
         //Arriba y abajo
         if (upwardsRunning)
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x, wallClimbSpeed, rb.linearVelocity.z);
+            rb.linearVelocity = new Vector3(
+                rb.linearVelocity.x,
+                wallClimbSpeed,
+                rb.linearVelocity.z
+            );
 
         if (downwardsRunning)
-                rb.linearVelocity = new Vector3(rb.linearVelocity.x, -wallClimbSpeed, rb.linearVelocity.z);
+            rb.linearVelocity = new Vector3(
+                rb.linearVelocity.x,
+                -wallClimbSpeed,
+                rb.linearVelocity.z
+            );
 
         //Pegarte a la pared
         if (!(wallLeft && horizontalInput > 0) && !(wallRight && horizontalInput < 0))
@@ -163,7 +188,7 @@ public class WallRunning : MonoBehaviour
         if (useGravity)
             rb.AddForce(transform.up * gravityCounterForce, ForceMode.Force);
     }
-    
+
     private void StopWallRun()
     {
         pm.wallrunning = false;
@@ -180,5 +205,4 @@ public class WallRunning : MonoBehaviour
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         rb.AddForce(forceToApply, ForceMode.Impulse);
     }
-
 }
