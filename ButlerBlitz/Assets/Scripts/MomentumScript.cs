@@ -1,20 +1,30 @@
+using System;
 using UnityEngine;
 
 public class MomentumScript : MonoBehaviour
 {
     public static MomentumScript Instance; // Singleton simple
 
-    [SerializeField] float qtyMmt = 0f;
-    [SerializeField] float decr = 5f;
+    [Header("Cantidad Inicial")]
+    [SerializeField] float qtyMmt = 10f;
 
-    public float bajoMmt = 10f,
-        medioMmt = 20f,
-        altoMmt = 30f,
-        mAltoMmt = 40f,
-        comboMmt = 15f;
+    [Header("Decrecimiento")]
+    [SerializeField] float decrAlto = 5f;
+    [SerializeField] float decrBajo = 2.5f;
+    [SerializeField] float mmtMinimo = 2f;
+
+    [Header("Niveles de aumento")]
+    public float bajoMmt = 10f;
+    public float medioMmt = 20f;
+    public float altoMmt = 30f;
+    public float mAltoMmt = 40f;
+    public float comboMmt = 15f;
+
 
     bool isDecreasing = true;
-    float ultimoNivel = 0f;
+    [NonSerialized] public bool isWalking = false;
+    float ultimoNivel = 0f,
+    decr;
 
     void Awake()
     {
@@ -41,10 +51,25 @@ public class MomentumScript : MonoBehaviour
 
     void Decrecer()
     {
-        if (decr == 2.5f && qtyMmt <= 10)
-            qtyMmt = 10;
-        if (decr == 5 && qtyMmt <= 0)
-            qtyMmt = 0;
+        if (isWalking)
+        {
+            decr = decrBajo;
+
+            if (qtyMmt <= mmtMinimo)
+            {
+                qtyMmt = mmtMinimo;
+
+            }
+        }
+        else
+        {
+            decr = decrAlto;
+            if (qtyMmt <= 0)
+            {
+                qtyMmt = 0;
+            }
+        }
+
     }
 
     public void Aumentar(float nivel)
@@ -72,58 +97,60 @@ public class MomentumScript : MonoBehaviour
     void OnGUI()
     {
         string qtyMmtText = qtyMmt.ToString("0.0");
+        GUIStyle style = new GUIStyle();
+        style.fontSize = 40;
 
-        GUI.Box(new Rect(20, 50, Screen.width - 40, 30), qtyMmtText);
+        GUI.Box(new Rect(20, 50, Screen.width - 40, 30), qtyMmtText, style);
+        /* 
+                // Botones de velocidad
+                if (GUI.Button(new Rect(20, 100, 100, 50), "5%/s"))
+                {
+                    print("5%/s");
+                    decr = 5f;
+                }
+                if (GUI.Button(new Rect(140, 100, 100, 50), "2.5%/s"))
+                {
+                    print("2.5%/s");
+                    decr = 2.5f;
+                }
 
-        // Botones de velocidad
-        if (GUI.Button(new Rect(20, 100, 100, 50), "5%/s"))
-        {
-            print("5%/s");
-            decr = 5f;
-        }
-        if (GUI.Button(new Rect(140, 100, 100, 50), "2.5%/s"))
-        {
-            print("2.5%/s");
-            decr = 2.5f;
-        }
+                //Decreciendo booleana
+                if (
+                    GUI.Button(
+                        new Rect(Screen.width - 20 - 100, 100, 100, 50),
+                        isDecreasing ? "Decreciendo" : "No Decreciendo"
+                    )
+                )
+                {
+                    isDecreasing = !isDecreasing;
+                }
 
-        //Decreciendo booleana
-        if (
-            GUI.Button(
-                new Rect(Screen.width - 20 - 100, 100, 100, 50),
-                isDecreasing ? "Decreciendo" : "No Decreciendo"
-            )
-        )
-        {
-            isDecreasing = !isDecreasing;
-        }
-
-        //Botones de niveles
-        if (GUI.Button(new Rect(20, 170, 100, 50), "Bajo"))
-        {
-            Aumentar(bajoMmt);
-            print("Nivel bajo");
-        }
-        if (GUI.Button(new Rect(20 + 120, 170, 100, 50), "Medio"))
-        {
-            Aumentar(medioMmt);
-            print("Nivel medio");
-        }
-        if (GUI.Button(new Rect(20 + (120 * 2), 170, 100, 50), "Alto"))
-        {
-            Aumentar(altoMmt);
-            print("Nivel alto");
-        }
-        if (GUI.Button(new Rect(20 + (120 * 3), 170, 100, 50), "Muy alto"))
-        {
-            Aumentar(mAltoMmt);
-            print("Nivel muy alto");
-        }
+                //Botones de niveles
+                if (GUI.Button(new Rect(20, 170, 100, 50), "Bajo"))
+                {
+                    Aumentar(bajoMmt);
+                    print("Nivel bajo");
+                }
+                if (GUI.Button(new Rect(20 + 120, 170, 100, 50), "Medio"))
+                {
+                    Aumentar(medioMmt);
+                    print("Nivel medio");
+                }
+                if (GUI.Button(new Rect(20 + (120 * 2), 170, 100, 50), "Alto"))
+                {
+                    Aumentar(altoMmt);
+                    print("Nivel alto");
+                }
+                if (GUI.Button(new Rect(20 + (120 * 3), 170, 100, 50), "Muy alto"))
+                {
+                    Aumentar(mAltoMmt);
+                    print("Nivel muy alto");
+                } */
     }
 
     public float GetMomentum() => qtyMmt;
 }
 
 
-    
+
 

@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
@@ -93,8 +94,10 @@ public class PlayerMovement : MonoBehaviour
         startYScale = transform.localScale.y;
     }
 
+
     private void Update()
     {
+
         grounded = Physics.Raycast(
             transform.position,
             Vector3.down,
@@ -113,9 +116,15 @@ public class PlayerMovement : MonoBehaviour
             || state == MovementState.sprinting
             || state == MovementState.crouching
         )
+        {
             rb.linearDamping = groundDrag;
+        }
+
         else
+        {
             rb.linearDamping = 0;
+        }
+
     }
 
     private void FixedUpdate()
@@ -200,6 +209,14 @@ public class PlayerMovement : MonoBehaviour
         {
             state = MovementState.walking;
             desiredMoveSpeed = walkSpeed;
+            if (Mathf.Abs(horizontalInput) > 0.1f || Mathf.Abs(verticalInput) > 0.1f)
+            {
+                MomentumScript.Instance.isWalking = true;
+            }
+            else
+            {
+                MomentumScript.Instance.isWalking = false;
+            }
         }
         //En el aire
         else
@@ -210,6 +227,7 @@ public class PlayerMovement : MonoBehaviour
                 desiredMoveSpeed = walkSpeed;
             else
                 desiredMoveSpeed = sprintSpeed;
+
         }
 
         bool desiredMoveSpeedHasChanged = desiredMoveSpeed != lastDesiredMoveSpeed;
@@ -258,6 +276,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
+
         if (state == MovementState.dashing)
             return;
 
@@ -320,7 +339,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (MomentumScript.Instance != null)
         {
-            MomentumScript.Instance.Aumentar(MomentumScript.Instance.bajoMmt); 
+            MomentumScript.Instance.Aumentar(MomentumScript.Instance.bajoMmt);
             Debug.Log("Salto: +10 momentum");
         }
     }
