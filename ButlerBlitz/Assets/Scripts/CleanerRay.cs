@@ -62,8 +62,6 @@ public class CleanerRay : MonoBehaviour
                     ray = new Ray(t.position, t.forward);
                 }
 
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
             }
 
             Debug.DrawRay(ray.origin, ray.direction * maxDistance, Color.green, 1.0f);
