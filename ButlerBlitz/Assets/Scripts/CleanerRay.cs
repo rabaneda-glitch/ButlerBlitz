@@ -29,9 +29,6 @@ public class CleanerRay : MonoBehaviour
             if (sourceCamera == null)
                 sourceCamera = Camera.main;
         }
-
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
     }
 
     void Update()
