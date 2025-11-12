@@ -14,7 +14,13 @@ public class Stain : MonoBehaviour
 
     public void Clean()
     {
+        if (MomentumScript.Instance != null)
+        {
+            MomentumScript.Instance.Aumentar(MomentumScript.Instance.mAltoMmt); 
+            Debug.Log("Tarea hecha: +40 momentum");
+        }
         _renderer.enabled = false;
+        
         Destroy(gameObject, 0.1f); //Tiempo que tarda en desaparecer la mancha
     }
 }

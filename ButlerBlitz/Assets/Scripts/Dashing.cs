@@ -36,7 +36,6 @@ public class Dashing : MonoBehaviour
         pm = GetComponent<PlayerMovement>();
     }
 
-    
     void Update()
     {
         if (Input.GetKeyDown(dashKey))
@@ -48,8 +47,8 @@ public class Dashing : MonoBehaviour
 
     private void Dash()
     {
-        if (dashCdTimer > 0) return;
-
+        if (dashCdTimer > 0)
+            return;
         else
             dashCdTimer = dashCd;
 
@@ -60,7 +59,6 @@ public class Dashing : MonoBehaviour
 
         if (useCameraForward)
             forwardT = playerCam;
-
         else
             forwardT = orientation;
 
@@ -73,9 +71,16 @@ public class Dashing : MonoBehaviour
         delayedForceToApply = forceToApply;
         Invoke(nameof(DelayedDashForce), 0.025f);
         Invoke(nameof(ResetDash), dashDuration);
+
+        if (MomentumScript.Instance != null)
+        {
+            MomentumScript.Instance.Aumentar(MomentumScript.Instance.medioMmt);
+            Debug.Log("Dash: +20 momentum");
+        }
     }
 
     private Vector3 delayedForceToApply;
+
     private void DelayedDashForce()
     {
         if (resetVel)
@@ -110,5 +115,4 @@ public class Dashing : MonoBehaviour
 
         return direction.normalized;
     }
-
 }

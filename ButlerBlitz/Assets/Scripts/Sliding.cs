@@ -58,6 +58,12 @@ public class Sliding : MonoBehaviour
         rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
 
         slideTimer = maxSlideTime;
+
+        if (MomentumScript.Instance != null)
+        {
+            MomentumScript.Instance.Aumentar(MomentumScript.Instance.medioMmt);
+            Debug.Log("Slide: +20 momentum");
+        }
     }
 
     private void SlidingMovement()

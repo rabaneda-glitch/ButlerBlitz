@@ -6,9 +6,9 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
 public class PlayerMovement : MonoBehaviour
 {
-
     [Header("Movement")]
     private float moveSpeed;
     public float walkSpeed;
@@ -64,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
 
     public MovementState state;
+
     public enum MovementState
     {
         walking,
@@ -72,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
         wallrunning,
         sliding,
         dashing,
-        air
+        air,
     }
 
     public bool sliding;
@@ -93,19 +94,37 @@ public class PlayerMovement : MonoBehaviour
         startYScale = transform.localScale.y;
     }
 
+
     private void Update()
     {
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+
+        grounded = Physics.Raycast(
+            transform.position,
+            Vector3.down,
+            playerHeight * 0.5f + 0.2f,
+            whatIsGround
+        );
+
+        //Debug.Log($"Grounded: {grounded}");
 
         MyInput();
         SpeedControl();
         StateHandler();
 
-        if (state == MovementState.walking || state == MovementState.sprinting || state == MovementState.crouching)
+        if (
+            state == MovementState.walking
+            || state == MovementState.sprinting
+            || state == MovementState.crouching
+        )
+        {
             rb.linearDamping = groundDrag;
+        }
 
         else
+        {
             rb.linearDamping = 0;
+        }
+
     }
 
     private void FixedUpdate()
@@ -129,14 +148,22 @@ public class PlayerMovement : MonoBehaviour
         //Agacharse
         if (Input.GetKeyDown(crouchKey))
         {
-            transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
+            transform.localScale = new Vector3(
+                transform.localScale.x,
+                crouchYScale,
+                transform.localScale.z
+            );
             rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
         }
 
         //Levantarse
         if (Input.GetKeyUp(crouchKey))
         {
-            transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
+            transform.localScale = new Vector3(
+                transform.localScale.x,
+                startYScale,
+                transform.localScale.z
+            );
         }
     }
 
@@ -148,7 +175,6 @@ public class PlayerMovement : MonoBehaviour
             state = MovementState.wallrunning;
             desiredMoveSpeed = wallrunSpeed;
         }
-        
         //Deslizarse
         else if (sliding)
         {
@@ -156,11 +182,9 @@ public class PlayerMovement : MonoBehaviour
 
             if (OnSlope() && rb.linearVelocity.y < 0.1f)
                 desiredMoveSpeed = slideSpeed;
-
             else
                 desiredMoveSpeed = sprintSpeed;
         }
-
         //Dash
         else if (dashing)
         {
@@ -168,28 +192,32 @@ public class PlayerMovement : MonoBehaviour
             desiredMoveSpeed = dashSpeed;
             speedChangeFactor = dashSpeedChangeFactor;
         }
-
         //Agachado
         else if (Input.GetKey(crouchKey))
         {
             state = MovementState.crouching;
             desiredMoveSpeed = crouchSpeed;
         }
-
         //Corriendo
         else if (grounded && Input.GetKey(sprintKey))
         {
             state = MovementState.sprinting;
             desiredMoveSpeed = sprintSpeed;
         }
-
         //Caminado
         else if (grounded)
         {
             state = MovementState.walking;
             desiredMoveSpeed = walkSpeed;
+            if (Mathf.Abs(horizontalInput) > 0.1f || Mathf.Abs(verticalInput) > 0.1f)
+            {
+                MomentumScript.Instance.isWalking = true;
+            }
+            else
+            {
+                MomentumScript.Instance.isWalking = false;
+            }
         }
-
         //En el aire
         else
         {
@@ -197,9 +225,9 @@ public class PlayerMovement : MonoBehaviour
 
             if (desiredMoveSpeed < sprintSpeed)
                 desiredMoveSpeed = walkSpeed;
-
-            else 
+            else
                 desiredMoveSpeed = sprintSpeed;
+
         }
 
         bool desiredMoveSpeedHasChanged = desiredMoveSpeed != lastDesiredMoveSpeed;
@@ -209,12 +237,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (desiredMoveSpeedHasChanged)
         {
-            if(keepMomentum)
+            if (keepMomentum)
             {
                 StopAllCoroutines();
                 StartCoroutine(SmoothlyLerpMoveSpeed());
             }
-
             else
             {
                 StopAllCoroutines();
@@ -237,7 +264,7 @@ public class PlayerMovement : MonoBehaviour
         while (time < difference)
         {
             moveSpeed = Mathf.Lerp(startValue, desiredMoveSpeed, time / difference);
-            time += Time.deltaTime* boostFactor;
+            time += Time.deltaTime * boostFactor;
 
             yield return null;
         }
@@ -249,7 +276,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        if (state == MovementState.dashing) return;
+
+        if (state == MovementState.dashing)
+            return;
 
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
@@ -267,13 +296,14 @@ public class PlayerMovement : MonoBehaviour
             rb.useGravity = !OnSlope();
 
         //En el suelo
-        if (grounded) 
+        if (grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-
         //En el aire
-        else if (!grounded) 
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
-
+        else if (!grounded)
+            rb.AddForce(
+                moveDirection.normalized * moveSpeed * 10f * airMultiplier,
+                ForceMode.Force
+            );
     }
 
     private void SpeedControl()
@@ -284,7 +314,6 @@ public class PlayerMovement : MonoBehaviour
             if (rb.linearVelocity.magnitude > moveSpeed)
                 rb.linearVelocity = rb.linearVelocity.normalized * moveSpeed;
         }
-
         //Limitar velocidad en el suelo y aire
         else
         {
@@ -307,6 +336,12 @@ public class PlayerMovement : MonoBehaviour
 
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+
+        if (MomentumScript.Instance != null)
+        {
+            MomentumScript.Instance.Aumentar(MomentumScript.Instance.bajoMmt);
+            Debug.Log("Salto: +10 momentum");
+        }
     }
 
     private void ResetJump()
@@ -318,7 +353,14 @@ public class PlayerMovement : MonoBehaviour
 
     public bool OnSlope()
     {
-        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f +  0.3f))
+        if (
+            Physics.Raycast(
+                transform.position,
+                Vector3.down,
+                out slopeHit,
+                playerHeight * 0.5f + 0.3f
+            )
+        )
         {
             float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
             return angle < maxSlopeAngle && angle != 0;
@@ -331,5 +373,4 @@ public class PlayerMovement : MonoBehaviour
     {
         return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
     }
-
 }
