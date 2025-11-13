@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuScript : MonoBehaviour
 {
@@ -46,6 +47,12 @@ public class MenuScript : MonoBehaviour
     {
         Debug.Log("credits selected");
         switchMenu(MenuStates.Credits);
+    }
+
+    public void levelOne()
+    {
+        Debug.Log("level 1 selected");
+        SceneManager.LoadScene("MovementButler");
     }
 
 
