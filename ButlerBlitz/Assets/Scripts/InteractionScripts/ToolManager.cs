@@ -4,10 +4,10 @@ public class ToolManager : MonoBehaviour
 {
     public static ToolManager Instance { get; private set; }
 
-    public enum Tool { Vacuum = 1, Sponge = 2, Duster = 3, Mop = 4, Flush = 0}
+    public enum Tool {Vacuum = 0, Sponge = 1, Duster = 2, Mop = 3}
 
     [Header("Referencias")]
-    [SerializeField] private ToolChange toolChange; // Detecta la herramienta activa
+    [SerializeField] private ToolChange toolChange; 
 
     private Tool currentTool;
     public Tool CurrentTool => currentTool;
@@ -27,8 +27,8 @@ public class ToolManager : MonoBehaviour
     {
         if (toolChange == null) return;
 
-        // Detectar herramienta actual desde ToolChange
         Tool newTool = (Tool)toolChange.SelectedTool;
+
         if (newTool != currentTool)
         {
             currentTool = newTool;
