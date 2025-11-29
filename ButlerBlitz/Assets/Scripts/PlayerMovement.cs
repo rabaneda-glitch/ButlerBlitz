@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
-    public KeyCode sprintKey = KeyCode.LeftShift;
+    public KeyCode sprintKey = KeyCode.None;
     public KeyCode crouchKey = KeyCode.None;
 
     [Header("Ground Check")]
@@ -53,6 +53,9 @@ public class PlayerMovement : MonoBehaviour
     public float maxSlopeAngle;
     private RaycastHit slopeHit;
     private bool exitingSlope;
+
+    [Header("Zone Detection")]
+    public Zones.CurrentZone currentZone = Zones.CurrentZone.Hall;
 
     public Transform orientation;
 
@@ -84,6 +87,8 @@ public class PlayerMovement : MonoBehaviour
     private float speedChangeFactor;
     private bool keepMomentum;
 
+    
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -104,8 +109,6 @@ public class PlayerMovement : MonoBehaviour
             playerHeight * 0.5f + 0.2f,
             whatIsGround
         );
-
-        //Debug.Log($"Grounded: {grounded}");
 
         MyInput();
         SpeedControl();
@@ -372,5 +375,25 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 GetSlopeMoveDirection(Vector3 direction)
     {
         return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        var zone = other.GetComponent<Zones>();
+        if (zone != null)
+        {
+            currentZone = zone.zone;
+            Debug.Log($"Entró en zona: {currentZone}");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        var zone = other.GetComponent<Zones>();
+        if (zone != null && currentZone == zone.zone)
+        {
+            currentZone = Zones.CurrentZone.Hall;
+            Debug.Log($"Salió de zona: {zone.zone}");
+        }
     }
 }

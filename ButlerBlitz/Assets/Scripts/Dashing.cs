@@ -12,10 +12,10 @@ public class Dashing : MonoBehaviour
     private PlayerMovement pm;
 
     [Header("Dashing")]
-    public float dashForce;
-    public float dashUpwardForce;
-    public float maxDashYSpeed;
-    public float dashDuration;
+    public float dashForce = 20f;
+    public float dashUpwardForce = 0f;
+    public float maxDashYSpeed = 15f;
+    public float dashDuration = 0.25f;
 
     [Header("Settings")]
     public bool useCameraForward = true;
@@ -24,11 +24,11 @@ public class Dashing : MonoBehaviour
     public bool resetVel = true;
 
     [Header("Cooldown")]
-    public float dashCd;
+    public float dashCd = 1.5f;
     private float dashCdTimer;
 
     [Header("Input")]
-    public KeyCode dashKey = KeyCode.E;
+    public KeyCode dashKey = KeyCode.LeftShift;
 
     void Start()
     {

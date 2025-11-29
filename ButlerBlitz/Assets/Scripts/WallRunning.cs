@@ -143,6 +143,7 @@ public class WallRunning : MonoBehaviour
         wallRunTimer = maxWallRunTime;
 
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+
         if (MomentumScript.Instance != null)
         {
             MomentumScript.Instance.Aumentar(MomentumScript.Instance.altoMmt);
