@@ -5,15 +5,15 @@ using UnityEngine;
 public class Stain : MonoBehaviour
 {
     public enum StainType { Mud, Dust, Grease, Water }
-    public StainType type = StainType.Mud;
+    public StainType type = StainType.Mud; //por defecto
 
-    [Header("Feedback")]
+    [Header("Destruir")]
     [SerializeField] public float destroyDelay = 0.5f;
 
     private Renderer _renderer;
     private Collider _collider;
 
-    [Header("VFX")]
+    [Header("Sistema de partículas")]
     [SerializeField] private GameObject ParticleSystem;
 
     public AudioSource cleanSound;
@@ -81,7 +81,6 @@ public class Stain : MonoBehaviour
 
         if (ParticleSystem != null)
         {
-            //Sistema de particulas en la posición de la mancha
             GameObject vfxInstance = Instantiate(
                 ParticleSystem,
                 transform.position,

@@ -31,18 +31,15 @@ public class CleanerRay : MonoBehaviour
 
     void Update()
     {
-        // --- Zoom con botón derecho ---
         float targetFov = Input.GetMouseButton(1) ? fovZoom : fovOriginal;
         _camera.fieldOfView = Mathf.SmoothDamp(_camera.fieldOfView, targetFov, ref fovVelocity, 0.5f);
 
-        // --- Cooldown ---
         if (cooldown > 0f)
         {
             cooldown -= Time.deltaTime;
             return;
         }
 
-        // --- Disparo con botón izquierdo ---
         if (Input.GetMouseButtonDown(0))
         {
             ShootRay();
