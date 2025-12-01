@@ -28,6 +28,31 @@ public class PlayerMovement : MonoBehaviour
 
     public float groundDrag = 4f;
 
+    public Transform orientation;
+
+    float horizontalInput;
+    float verticalInput;
+
+    Vector3 moveDirection;
+
+    Rigidbody rb;
+
+    public MovementState state;
+    public enum MovementState
+    {
+        walking,
+        crouching,
+        sprinting,
+        wallrunning,
+        sliding,
+        dashing,
+        air,
+    }
+
+    public bool sliding;
+    public bool dashing;
+    public bool wallrunning;
+
     [Header("Jumping")]
     public float jumpForce = 8f;
     public float jumpCooldown = 0.25f;
@@ -57,37 +82,11 @@ public class PlayerMovement : MonoBehaviour
     [Header("Zone Detection")]
     public Zones.CurrentZone currentZone = Zones.CurrentZone.Hall;
 
-    public Transform orientation;
-
-    float horizontalInput;
-    float verticalInput;
-
-    Vector3 moveDirection;
-
-    Rigidbody rb;
-
-    public MovementState state;
-
-    public enum MovementState
-    {
-        walking,
-        crouching,
-        sprinting,
-        wallrunning,
-        sliding,
-        dashing,
-        air,
-    }
-
-    public bool sliding;
-    public bool dashing;
-    public bool wallrunning;
-
     private MovementState lastState;
     private float speedChangeFactor;
     private bool keepMomentum;
 
-    
+
 
     private void Start()
     {
@@ -397,3 +396,4 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 }
+

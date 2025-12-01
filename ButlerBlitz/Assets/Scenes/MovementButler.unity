@@ -636,7 +636,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 94965339}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb7482c9dc85b0348bfb4b4d7467dc03, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e01df4eba566354e985546d68615ef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   whatIsWall:
@@ -668,25 +668,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 94965339}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 113f52f082ebcd3458257a6bc6331211, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  orientation: {fileID: 1622132577}
-  playerObj: {fileID: 211469868}
-  maxSlideTime: 0.75
-  slideForce: 200
-  slideYScale: 0.5
-  slideKey: 306
---- !u!114 &94965344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 94965339}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8691347b9e8f30e499177cfa993afbfc, type: 3}
+  m_Script: {fileID: 11500000, guid: f8f3e0838846915419429a83faf8068e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: {fileID: 1622132577}
@@ -701,6 +683,24 @@ MonoBehaviour:
   resetVel: 1
   dashCd: 1.5
   dashKey: 304
+--- !u!114 &94965344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94965339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79dfc8b480006b84ca42116b034fd950, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orientation: {fileID: 1622132577}
+  playerObj: {fileID: 211469868}
+  maxSlideTime: 0.75
+  slideForce: 200
+  slideYScale: 0.5
+  slideKey: 306
 --- !u!114 &94965345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -710,7 +710,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 94965339}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b46d3a8099a54144daefb829da37257e, type: 3}
+  m_Script: {fileID: 11500000, guid: 189d54342556e7b4ca10231238593780, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 10
@@ -721,6 +721,11 @@ MonoBehaviour:
   dashSpeedChangeFactor: 50
   maxYSpeed: 0
   groundDrag: 4
+  orientation: {fileID: 1622132577}
+  state: 0
+  sliding: 0
+  dashing: 0
+  wallrunning: 0
   jumpForce: 8
   jumpCooldown: 0.25
   airMultiplier: 0.4
@@ -735,11 +740,6 @@ MonoBehaviour:
     m_Bits: 1024
   maxSlopeAngle: 40
   currentZone: 0
-  orientation: {fileID: 1622132577}
-  state: 0
-  sliding: 0
-  dashing: 0
-  wallrunning: 0
 --- !u!1 &122442502
 GameObject:
   m_ObjectHideFlags: 0
@@ -3077,7 +3077,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 426202747}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 827f50f0b8579fd4e97dbbda72d601b5, type: 3}
+  m_Script: {fileID: 11500000, guid: a25c50e2f60528f40b05cd55e16616e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sensX: 100
@@ -67785,7 +67785,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1099745847}
-  - component: {fileID: 1099745849}
+  - component: {fileID: 1099745848}
   m_Layer: 0
   m_Name: CameraHolder
   m_TagString: Untagged
@@ -67809,7 +67809,7 @@ Transform:
   - {fileID: 426202748}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1099745849
+--- !u!114 &1099745848
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -67818,7 +67818,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1099745845}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 185b40fd428702c45a60ad64aa154b80, type: 3}
+  m_Script: {fileID: 11500000, guid: fd793201098f6e448beb9cac29cd8cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cameraPosition: {fileID: 592437813}

@@ -207,3 +207,4 @@ public class WallRunning : MonoBehaviour
         rb.AddForce(forceToApply, ForceMode.Impulse);
     }
 }
+
