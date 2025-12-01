@@ -1,18 +1,28 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections; 
+using System.Collections;
 
 public class ToolChange : MonoBehaviour
 {
     public int SelectedTool = 0;
+    private const int CLEANING_TOOL_COUNT = 4;
+    private const int MAX_TOOL_INDEX = CLEANING_TOOL_COUNT - 1; // El índice máximo es 3
 
     [SerializeField] private Animator handPivotAnimator;
 
-    //duración aniamción
+    //duración animación
     [SerializeField] private float hideDuration = 0.4f;
     [SerializeField] private float showDuration = 0.4f;
 
     [SerializeField] private Vector3 handPivotVisibleLocalPosition = Vector3.zero; //pisición inicial
+
+    [Header("Gestión de Llaves")]
+    [SerializeField] private GameObject keyHandModel; //GameObject de la Llave
+    [HideInInspector] public bool IsKeyActive = false; // Estado para saber si la llave está activa
+
+    [Header("Drop Settings")]
+    [SerializeField] private GameObject keyWorldPrefab; // Prefab de la llave del mundo
+    [SerializeField] private Transform dropPoint;      // Punto desde donde se suelta la llave
 
     private bool isChanging = false;
 
@@ -32,11 +42,18 @@ public class ToolChange : MonoBehaviour
     {
         if (isChanging) return;
 
+        if (Input.GetKeyDown(KeyCode.V) && IsKeyActive)
+        {
+            DropKey();
+            return; // Detiene la ejecución para que no intente cambiar de herramienta
+        }
+        if (IsKeyActive) return;  //Si la llave está activa, se ignoran las entradas de la ruleta.
+
         int previousSelectedTool = SelectedTool;
 
         if (Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
-            if (SelectedTool >= transform.childCount - 1)
+            if (SelectedTool >= MAX_TOOL_INDEX) // Usamos 3 como límite
                 SelectedTool = 0;
             else
                 SelectedTool++;
@@ -45,7 +62,7 @@ public class ToolChange : MonoBehaviour
         if (Input.GetAxis("Mouse ScrollWheel") < 0f)
         {
             if (SelectedTool <= 0)
-                SelectedTool = transform.childCount - 1;
+                SelectedTool = MAX_TOOL_INDEX; // Usamos 3 como límite
             else
                 SelectedTool--;
         }
@@ -86,16 +103,76 @@ public class ToolChange : MonoBehaviour
         isChanging = false;
     }
 
+    // ToolChange.cs
+    // REEMPLAZA la función SelectTool() existente por esta
     void SelectTool()
     {
         int i = 0;
         foreach (Transform tool in transform)
         {
-            if (i == SelectedTool)
-                tool.gameObject.SetActive(true);
-            else
+            // 1. Si la llave está activa, desactiva todas las herramientas de limpieza.
+            if (IsKeyActive)
+            {
                 tool.gameObject.SetActive(false);
+            }
+            // 2. Si la llave NO está activa, usa la lógica normal de selección.
+            else
+            {
+                if (i == SelectedTool)
+                    tool.gameObject.SetActive(true);
+                else
+                    tool.gameObject.SetActive(false);
+            }
             i++;
+        }
+
+        // 3. Gestiona la visibilidad de la llave
+        if (keyHandModel != null)
+        {
+            keyHandModel.SetActive(IsKeyActive);
+        }
+    }
+
+    // ToolChange.cs
+    public void SetKeyVisibility(bool visibility)
+    {
+        // Solo aplica el cambio si el estado es diferente y no hay animación en curso.
+        if (IsKeyActive != visibility && !isChanging)
+        {
+            IsKeyActive = visibility;
+
+            // Llama a la corrutina de animación existente para que la transición sea suave.
+            // No importa qué valor le pases a previousTool, ya que SelectTool() ahora maneja la visibilidad.
+            StartCoroutine(ChangeToolAnimated(SelectedTool));
+        }
+    }
+
+    public void DropKey()
+    {
+        // Verifica si la llave está activa y no hay animación en curso
+        if (!IsKeyActive || isChanging) return;
+
+        // 1. Oculta la llave de la mano y muestra la herramienta anterior.
+        // Esto llama a ChangeToolAnimated y SetKeyVisibility(false) se maneja internamente.
+        SetKeyVisibility(false);
+
+        // 2. Instancia el objeto de la llave en el mundo.
+        if (keyWorldPrefab != null && dropPoint != null)
+        {
+            // Instancia el Prefab en la posición y rotación del Drop Point.
+            GameObject droppedKey = Instantiate(keyWorldPrefab, dropPoint.position, dropPoint.rotation);
+
+            // Opcional: si la llave tiene Rigidbody (necesario para la física).
+            if (droppedKey.TryGetComponent<Rigidbody>(out Rigidbody rb))
+            {
+                // Pequeño impulso hacia adelante y un poco hacia arriba para que "salga" de la cámara
+                rb.AddForce(dropPoint.forward * 2f, ForceMode.Impulse);
+                rb.AddForce(Vector3.up * 1f, ForceMode.Impulse);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Falta asignar keyWorldPrefab o dropPoint en ToolChange para soltar la llave.");
         }
     }
 }
