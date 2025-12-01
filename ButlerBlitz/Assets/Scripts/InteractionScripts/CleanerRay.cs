@@ -53,7 +53,7 @@ public class CleanerRay : MonoBehaviour
         Ray ray = _camera.ScreenPointToRay(center);
         RaycastHit hit;
 
-        int interactableMask = LayerMask.GetMask("Stain", "Key");
+        int interactableMask = LayerMask.GetMask("Stain", "Key", "Door");
 
         if (Physics.Raycast(ray, out hit, maxDistance, interactableMask))
         {
@@ -62,6 +62,13 @@ public class CleanerRay : MonoBehaviour
             {
                 key.PickUp(); // Llama al método para recogerla
                 return; // Detiene la ejecución aquí para que no intente limpiar la llave
+            }
+
+            Door door = hit.transform.GetComponent<Door>();
+            if (door != null)
+            {
+                door.Interact(); // Llama al nuevo método Interact() de la puerta
+                return; // Detiene la ejecución
             }
 
             Stain stain = hit.transform.GetComponent<Stain>();

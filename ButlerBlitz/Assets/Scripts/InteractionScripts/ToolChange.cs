@@ -162,10 +162,12 @@ public class ToolChange : MonoBehaviour
             // Instancia el Prefab en la posición y rotación del Drop Point.
             GameObject droppedKey = Instantiate(keyWorldPrefab, dropPoint.position, dropPoint.rotation);
 
-            // Opcional: si la llave tiene Rigidbody (necesario para la física).
             if (droppedKey.TryGetComponent<Rigidbody>(out Rigidbody rb))
             {
-                // Pequeño impulso hacia adelante y un poco hacia arriba para que "salga" de la cámara
+                // 1. Asegúrate de que no estás desactivando la gravedad aquí,
+                //    y que estás aplicando el impulso para que salga del jugador.
+                rb.isKinematic = false; // Debe ser false para que la física funcione.
+
                 rb.AddForce(dropPoint.forward * 2f, ForceMode.Impulse);
                 rb.AddForce(Vector3.up * 1f, ForceMode.Impulse);
             }

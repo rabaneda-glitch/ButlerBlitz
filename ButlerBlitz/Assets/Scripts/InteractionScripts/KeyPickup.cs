@@ -3,10 +3,7 @@ using UnityEngine;
 
 public class KeyPickup : MonoBehaviour
 {
-    // Una referencia al objeto ToolHolder donde está ToolChange.
-    // Esto es más seguro que usar FindObjectOfType.
-    [SerializeField] private ToolChange toolChangeManager;
-
+    
     private bool hasBeenPickedUp = false;
 
     // Asigna el ToolChange Manager en el Inspector.
@@ -15,10 +12,9 @@ public class KeyPickup : MonoBehaviour
     {
         if (hasBeenPickedUp) return;
 
-        if (toolChangeManager != null)
+        if (ToolManager.Instance != null && ToolManager.Instance.toolChange != null)
         {
-            // 1. Llama a la función que creamos en el paso anterior para mostrar la llave en la mano.
-            toolChangeManager.SetKeyVisibility(true);
+            ToolManager.Instance.toolChange.SetKeyVisibility(true);
 
             hasBeenPickedUp = true;
 
