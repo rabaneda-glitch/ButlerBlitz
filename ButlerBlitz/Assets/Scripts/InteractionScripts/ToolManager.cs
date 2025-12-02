@@ -10,7 +10,7 @@ public class ToolManager : MonoBehaviour
     [SerializeField] public ToolChange toolChange;
 
     [Header("Inventario")]
-    public bool HasKey = false; // Estado lógico para si el jugador tiene la llave.
+    public bool HasKey = false;
 
     private Tool currentTool;
     public Tool CurrentTool => currentTool;
@@ -54,11 +54,8 @@ public class ToolManager : MonoBehaviour
             _ => false
         };
     }
-
-    // NUEVA FUNCIÓN para verificar si se puede abrir una puerta.
     public bool CanOpenDoor()
     {
-        // La puerta se puede abrir si la llave está activa y en la mano.
         return HasKey;
     }
 }
