@@ -12,7 +12,7 @@ public class CleanerRay : MonoBehaviour
     [SerializeField] private float cooldownSecs = 1f;
     private float cooldown = 0f;
 
-    [Header("FOV")]
+    [Header("FOV (Zoom)")]
     [SerializeField] private float fovZoom = 20f;
     private float fovOriginal;
     private float fovVelocity = 0f;
@@ -60,15 +60,15 @@ public class CleanerRay : MonoBehaviour
             KeyPickup key = hit.transform.GetComponent<KeyPickup>();
             if (key != null)
             {
-                key.PickUp();
-                return; 
+                key.PickUp(); // Llama al método para recogerla
+                return; // Detiene la ejecución aquí para que no intente limpiar la llave
             }
 
             Door door = hit.transform.GetComponent<Door>();
             if (door != null)
             {
-                door.Interact();
-                return;
+                door.Interact(); // Llama al nuevo método Interact() de la puerta
+                return; // Detiene la ejecución
             }
 
             Stain stain = hit.transform.GetComponent<Stain>();
