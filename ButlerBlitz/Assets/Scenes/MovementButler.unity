@@ -561,7 +561,7 @@ MonoBehaviour:
   loadingImage: {fileID: 710916827}
   loadingText: {fileID: 866599155}
   loadingProgress: 0
-  stainsTotal: 20
+  stainsTotal: 21
 --- !u!1 &91602682
 GameObject:
   m_ObjectHideFlags: 0
@@ -72700,7 +72700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zone: 3
-  stainsInTheZone: 2
+  stainsInTheZone: 3
 --- !u!65 &1542994314
 BoxCollider:
   m_ObjectHideFlags: 0
