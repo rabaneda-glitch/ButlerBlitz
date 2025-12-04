@@ -1,86 +1,90 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[System.Serializable]
+public class CinematicFrame
+{
+    public GameObject image;
+    public bool hasMovement;
+    public bool goesUp, goesDown;
+    public float targetYPosition = 0f;
+    public float speed = 1f;
+
+    public AnimationCurve movementCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+
+}
+
 public class StartCinematicScript : MonoBehaviour
 {
-   private GameObject currentState;
-
     public int menuState = 0;
 
-    public GameObject firstImage;
-    public GameObject secondImage;
-    public GameObject thirdImage;
-    public GameObject fourthImage;
+    public CinematicFrame[] frames;
+
+    private CinematicFrame currentFrame;
+    public string nextSceneName;
+
+
 
     void Start()
     {
-        currentState = firstImage;
-        firstImage.SetActive(true);
-        secondImage.SetActive(false);
-        thirdImage.SetActive(false);
-        fourthImage.SetActive(false);
-    }
+        currentFrame = frames[menuState];
 
+        foreach (var frame in frames)
+            frame.image.SetActive(false);
+
+        currentFrame.image.SetActive(true);
+    }
 
 
     public void next()
     {
-        Debug.Log("next image selected");
-        menuState += 1;
-        if (menuState > 3)
+        menuState++;
+
+        if (menuState >= frames.Length)
         {
-            SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene(nextSceneName);
         }
-        else
-        {
-            switchImage(menuState);
-        }
+
+        switchFrame(menuState);
     }
 
 
-
-    public void switchImage(int menu)
+    void switchFrame(int index)
     {
-        GameObject newState;
+        currentFrame.image.SetActive(false);
 
-        switch (menuState)
-        {
-            case 0:
-                newState = firstImage;
-                break;
-            case 1:
-                newState = secondImage;
-                break;
-            case 2:
-                newState = thirdImage;
-                break;
-            case 3:
-                newState = fourthImage;
-                break;
-            default:
-                newState = firstImage;
-                break;
-        }
+        currentFrame = frames[index];
+        currentFrame.image.SetActive(true);
 
-        // Desactivar el menú anterior antes de cambiar
-        if (currentState != null)
-            currentState.SetActive(false);
-
-        currentState = newState;
-        currentState.SetActive(true);
     }
+
 
     void Update()
     {
-
-        if (Input.GetKey("return"))
-        {
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Escape))
             next();
 
-        }
-        if (Input.GetKey("escape"))
+        if (currentFrame.hasMovement)
         {
-            next();
+
+            RectTransform imageRT = currentFrame.image.GetComponent<RectTransform>();
+            float imageHeight = imageRT.rect.height;
+            float positionY = currentFrame.image.transform.position.y;
+            Debug.Log("positionY: " + positionY);
+
+            if (currentFrame.goesUp && positionY < currentFrame.targetYPosition)
+            {
+                //Debug.Log("positionY: " + positionY);
+                currentFrame.image.transform.Translate(Vector3.up * currentFrame.speed * Time.deltaTime);
+            }
+
+            if (currentFrame.goesDown & positionY > currentFrame.targetYPosition)
+            {
+                //Debug.Log("positionY: " + positionY);
+                currentFrame.image.transform.Translate(Vector3.down * currentFrame.speed * Time.deltaTime);
+            }
+
+
 
         }
     }
