@@ -14,6 +14,7 @@ public class SplashScreen : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
+            Debug.Log("Saliendo del juego");
         }
     }
 

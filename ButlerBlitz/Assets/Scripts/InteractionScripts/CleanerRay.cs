@@ -17,16 +17,11 @@ public class CleanerRay : MonoBehaviour
     private float fovOriginal;
     private float fovVelocity = 0f;
 
-    [Header("Crosshair")]
-    [SerializeField] private Texture2D crosshair;
-
     void Start()
     {
         _camera = GetComponent<Camera>();
         fovOriginal = _camera.fieldOfView;
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     void Update()
@@ -79,13 +74,5 @@ public class CleanerRay : MonoBehaviour
         }
     }
 
-    void OnGUI()
-    {
-        if (crosshair == null) return;
-
-        int size = 32;
-        float posX = (_camera.pixelWidth - size) / 2;
-        float posY = (_camera.pixelHeight - size) / 2;
-        GUI.Label(new Rect(posX, posY, size, size), crosshair);
-    }
+   
 }
