@@ -40,6 +40,7 @@ public class Progresion : MonoBehaviour
         {
             loadingText.text = "100%";
             Debug.Log("Todo limpio");
+            ScoreScript.Instance.CalcScore();
             SceneManager.LoadScene("EndMenu");
         }
     }

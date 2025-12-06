@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class CinematicFrame
@@ -22,7 +24,7 @@ public class StartCinematicScript : MonoBehaviour
 
     private CinematicFrame currentFrame;
     public string nextSceneName;
-
+    public Button nextButton;
 
 
     void Start()
@@ -46,6 +48,9 @@ public class StartCinematicScript : MonoBehaviour
         }
 
         switchFrame(menuState);
+
+ EventSystem.current.SetSelectedGameObject(null);
+
     }
 
 

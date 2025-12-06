@@ -7,9 +7,19 @@ using Unity.VisualScripting;
 
 public class Timer : MonoBehaviour
 {
+    public static Timer Instance; // Singleton simple
+
     public TextMeshProUGUI TimerText;
     public float timer = 60;
-    
+
+     void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+    }
+
     void Update()
     {
         timer -= Time.deltaTime;
@@ -20,4 +30,7 @@ public class Timer : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public float GetTimeLeft() => timer;
+
 }

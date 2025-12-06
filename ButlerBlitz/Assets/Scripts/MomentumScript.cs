@@ -27,6 +27,10 @@ public class MomentumScript : MonoBehaviour
     decr;
     public float ActualMomentum;
 
+    private float timeInRange = 0f;
+    private float totalTimeInRange90To100 = 0f;
+    private bool isInRange90To100 = false;
+
     void Awake()
     {
         // Asegurar una sola instancia
@@ -38,6 +42,8 @@ public class MomentumScript : MonoBehaviour
 
     void Update()
     {
+        highRange();
+
         if (isDecreasing)
             qtyMmt -= decr * Time.deltaTime;
 
@@ -49,6 +55,35 @@ public class MomentumScript : MonoBehaviour
             GameOver();
         }
         ActualMomentum = qtyMmt;
+    }
+
+    public float highRange()
+    {
+        if (qtyMmt >= 90f && qtyMmt <= 100f)
+        {
+            if (!isInRange90To100)
+            {
+                isInRange90To100 = true;
+                timeInRange = 0f; // Reseteamos el contador cuando entramos en el rango
+            }
+            timeInRange += Time.deltaTime; // Contamos el tiempo mientras estamos en el rango
+        }
+        else
+        {
+            // Solo sumamos al tiempo total si hemos estado dentro del rango previamente
+            if (isInRange90To100)
+            {
+                totalTimeInRange90To100 += timeInRange; // Acumulamos el tiempo
+                timeInRange = 0f; // Reset del tiempo actual
+                isInRange90To100 = false; // Salimos del rango
+            }
+        }
+        totalTimeInRange90To100 = 10f; //////////////////CAMBIAR PARA PRUEBAS
+        //////////////////////////////////////////////////
+        ///         //////////////////////////////////////////////////
+        ///         //////////////////////////////////////////////////
+        ///         //////////////////////////////////////////////////
+        return totalTimeInRange90To100;
     }
 
     void Decrecer()
@@ -88,15 +123,22 @@ public class MomentumScript : MonoBehaviour
 
         if (qtyMmt > 100f)
             qtyMmt = 100f;
+
+        if (ScoreScript.Instance != null)
+            ScoreScript.Instance.AddPoints(nivel);
+        else
+            Debug.LogWarning("ScoreScript.Instance is not initialized.");
+
     }
 
     void GameOver()
     {
         Debug.Log("❌ Momentum = 0 → Game Over");
-        // Aquí puedes pausar el juego, cambiar de escena, etc.
     }
 
     public float GetMomentum() => qtyMmt;
+
+    public float GetTotalTimeInRange90To100() => totalTimeInRange90To100;
 }
 
 
