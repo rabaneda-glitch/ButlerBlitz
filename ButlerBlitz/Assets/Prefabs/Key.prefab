@@ -95,7 +95,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0680904ff2b244c488e1c92ddddeb11c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toolChangeManager: {fileID: 0}
 --- !u!1001 &3590224721920986087
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -163,7 +162,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 5259e2606b9449b4abf8315fb679c6b4, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: f09451311bcbe2d46b211de2b6813845, type: 2}
+      objectReference: {fileID: 2100000, guid: 1a7c6b13b8983fa4bbfb1dbfbb5fef57, type: 2}
     - target: {fileID: 919132149155446097, guid: 5259e2606b9449b4abf8315fb679c6b4, type: 3}
       propertyPath: m_Name
       value: key
