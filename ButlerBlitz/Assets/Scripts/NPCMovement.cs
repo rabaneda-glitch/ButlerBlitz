@@ -3,29 +3,31 @@ using UnityEngine.AI;
 
 public class NPCMovement : MonoBehaviour
 {
-    [SerializeField] Transform destination;
 
-    NavMeshAgent navMeshAgent;
+     public NavMeshAgent m_NavMeshAgent { get; private set; }
+
+    public NPCPatrol patrolPath;
+    public int m_PathDestinationNodeIndex = 0;
 
     void Start()
     {
-        navMeshAgent = this.GetComponent<NavMeshAgent>();
-
-        if(navMeshAgent == null)
-        {
-            Debug.LogError("nav mesh agent component not attached");
-        } else
-        {
-            SetDestination();
-        }
+        m_NavMeshAgent = GetComponent<NavMeshAgent>();
     }
 
-    private void SetDestination()
+    void Update()
     {
-        if (destination != null)
+        m_PathDestinationNodeIndex = patrolPath.UpdatePathDestination(gameObject.transform, m_PathDestinationNodeIndex);
+
+        Vector3 nextDestination = patrolPath.GetDestinationOnPath(gameObject.transform, m_PathDestinationNodeIndex);
+
+        SetNavDestination(nextDestination);
+    }
+
+    public void SetNavDestination(Vector3 destination)
+    {
+        if (m_NavMeshAgent.enabled)
         {
-            Vector3 targetVector = destination.transform.position;
-            navMeshAgent.SetDestination(targetVector);
+            m_NavMeshAgent.SetDestination(destination);
         }
     }
 }
