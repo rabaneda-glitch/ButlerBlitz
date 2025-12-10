@@ -11,20 +11,21 @@ using UnityEngine.SceneManagement;
 public class ProgresionPerZones : MonoBehaviour
 {
     public Image loadingImage;
-    public TextMeshProUGUI loadingText;
-    [Range(0, 1)]
     public float loadingProgress = 0;
 
     public float totalStainsInZone;
     public float stainsCleanedInZone;
 
-    // Mapa con el total inicial de manchas por zona
+    public Image zoneImage;
+    public Sprite[] zoneSprites;
+
     private Dictionary<Zones.CurrentZone, int> totalStainsPerZone = new Dictionary<Zones.CurrentZone, int>();
-    // Contador de manchas ya limpiadas por zona (se actualiza vía evento)
     private Dictionary<Zones.CurrentZone, int> cleanedPerZone = new Dictionary<Zones.CurrentZone, int>();
 
     private PlayerMovement player;
     private Zones[] zoneComponents;
+
+    private Zones.CurrentZone lastZone = Zones.CurrentZone.Hall;
 
     void OnEnable()
     {
@@ -38,6 +39,7 @@ public class ProgresionPerZones : MonoBehaviour
 
     void Start()
     {
+        // Compatibilidad con versiones de Unity que no tienen FindObjectsByType:
         zoneComponents = UnityEngine.Object.FindObjectsByType<Zones>(FindObjectsSortMode.None);
 
         totalStainsPerZone.Clear();
@@ -57,9 +59,12 @@ public class ProgresionPerZones : MonoBehaviour
         }
 
         player = UnityEngine.Object.FindFirstObjectByType<PlayerMovement>();
+
+        var initialZone = player != null ? player.currentZone : Zones.CurrentZone.Hall;
+        lastZone = initialZone;
+        UpdateZoneImage(initialZone);
     }
 
-    // Manejador del evento: aumenta el contador de limpias en la zona indicada
     private void HandleStainCleaned(Zones.CurrentZone zone)
     {
         if (cleanedPerZone.ContainsKey(zone))
@@ -72,25 +77,38 @@ public class ProgresionPerZones : MonoBehaviour
     {
         var currentZone = player != null ? player.currentZone : Zones.CurrentZone.Hall;
 
+        if (currentZone != lastZone)
+        {
+            UpdateZoneImage(currentZone);
+            lastZone = currentZone;
+        }
+
         totalStainsPerZone.TryGetValue(currentZone, out int totalInitial);
         totalStainsInZone = totalInitial;
 
-        // Si quieres usar remaining real puedes seguir consultando zoneComponents,
-        // pero ahora tenemos el contador de limpias garantizado por el evento.
         cleanedPerZone.TryGetValue(currentZone, out int cleanedCount);
         stainsCleanedInZone = Mathf.Clamp(cleanedCount, 0, (int)totalStainsInZone);
 
         loadingProgress = (totalStainsInZone > 0f) ? (stainsCleanedInZone / totalStainsInZone) : 1f;
 
-        // Actualizar UI
         if (loadingImage != null)
             loadingImage.fillAmount = loadingProgress;
-        if (loadingText != null)
+    }
+
+    private void UpdateZoneImage(Zones.CurrentZone zone)
+    {
+        if (zoneImage == null || zoneSprites == null)
+            return;
+
+        int index = (int)zone;
+        if (index >= 0 && index < zoneSprites.Length && zoneSprites[index] != null)
         {
-            if (loadingProgress < 1f)
-                loadingText.text = Mathf.RoundToInt(loadingProgress * 100f) + "%";
-            else
-                loadingText.text = "100%";
+            zoneImage.sprite = zoneSprites[index];
+            zoneImage.enabled = true;
+        }
+        else
+        {
+            zoneImage.enabled = false;
         }
     }
 }

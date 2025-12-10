@@ -9,8 +9,6 @@ using UnityEngine.SceneManagement;
 public class Progresion : MonoBehaviour
 {
     public Image loadingImage;
-    public TextMeshProUGUI loadingText;
-    [Range(0, 1)]
     public float loadingProgress = 0;
 
     public float stainsTotal;
@@ -30,19 +28,7 @@ public class Progresion : MonoBehaviour
     void Update()
     {
         loadingImage.fillAmount = loadingProgress;
-        if (loadingProgress < 1)
-        {
-            if (stainsTotal > 0)
-                loadingText.text = Mathf.RoundToInt((stainsCleaned / stainsTotal) * 100) + "%";
-        }
-
-        else
-        {
-            loadingText.text = "100%";
-            Debug.Log("Todo limpio");
-            ScoreScript.Instance.CalcScore();
-            SceneManager.LoadScene("EndMenu");
-        }
+       
     }
 
     public void IncrementStainsCleaned()
