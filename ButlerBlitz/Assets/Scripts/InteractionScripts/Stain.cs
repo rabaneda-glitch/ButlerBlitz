@@ -16,7 +16,8 @@ public class Stain : MonoBehaviour
     [Header("Sistema de partículas")]
     [SerializeField] private GameObject ParticleSystem;
 
-    public AudioSource cleanSound;
+    [SerializeField] private AudioClip sound;
+    private AudioSource cleanSound;
 
     [Header("Zone")]
     public Zones.CurrentZone assignedZone = Zones.CurrentZone.Hall;
