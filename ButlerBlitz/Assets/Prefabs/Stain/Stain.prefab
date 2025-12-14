@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  destroyDelay: 0.5
+  destroyDelay: 0.05
   ParticleSystem: {fileID: 6241636268202738515, guid: 25687ec1a1f5bb742b11d535220938bc, type: 3}
   sound: {fileID: 8300000, guid: ea617aeb17fda514b9e329cc36305e91, type: 3}
   assignedZone: 0
