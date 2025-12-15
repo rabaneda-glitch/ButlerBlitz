@@ -20,16 +20,22 @@ public class Timer : MonoBehaviour
             Destroy(gameObject);
     }
 
-    void Update()
-    {
-        timer -= Time.deltaTime;
-        TimerText.text = "" + timer.ToString("f0");
+void Update()
+{
+    timer -= Time.deltaTime;
+    TimerText.text = timer.ToString("f0");
 
-        if (timer <= 0)
-        {
-            Destroy(gameObject);
-        }
+    if (timer <= 0)
+    {
+        timer = 0;
+        TimerText.text = "0";
+
+        if (GameManager.Instance != null)
+            GameManager.Instance.GameOver();
+
+        enabled = false;
     }
+}
 
     public float GetTimeLeft() => timer;
 
