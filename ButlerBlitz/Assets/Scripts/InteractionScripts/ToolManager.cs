@@ -35,7 +35,6 @@ public class ToolManager : MonoBehaviour
         if (newTool != currentTool)
         {
             currentTool = newTool;
-            Debug.Log($"Herramienta actual: {currentTool}");
         }
     }
 

@@ -1,5 +1,3 @@
-// Door.cs (MODIFICADO)
-
 using UnityEngine;
 
 public class Door : MonoBehaviour
@@ -16,7 +14,6 @@ public class Door : MonoBehaviour
 
         if (anims.Length == 0)
         {
-            Debug.LogError("No se encontraron Animators en los hijos de " + gameObject.name);
             return;
         }
 
@@ -35,10 +32,6 @@ public class Door : MonoBehaviour
         {
             OperateDoor();
         }
-        else
-        {
-            Debug.Log("Puerta bloqueada. Necesitas la llave para abrirla.");
-        }
     }
 
     private void OperateDoor()
@@ -56,7 +49,5 @@ public class Door : MonoBehaviour
         {
             doorCollider.enabled = !open;
         }
-
-        Debug.Log(open ? "Puertas Abiertas" : "Puertas Cerradas");
     }
 }

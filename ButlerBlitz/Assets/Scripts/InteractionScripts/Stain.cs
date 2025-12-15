@@ -5,7 +5,7 @@ using UnityEngine;
 public class Stain : MonoBehaviour
 {
     public enum StainType { Mud, Dust, Grease, Water }
-    public StainType type = StainType.Mud; //por defecto
+    public StainType type = StainType.Mud;
 
     [Header("Destruir")]
     [SerializeField] public float destroyDelay = 0.5f;
@@ -49,7 +49,6 @@ public class Stain : MonoBehaviour
             bool correct = ToolManager.Instance.IsCorrectToolFor(this);
             if (!correct)
             {
-                Debug.Log($"Herramienta incorrecta para {type}");
                 return;
             }
         }

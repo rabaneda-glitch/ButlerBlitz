@@ -6,13 +6,12 @@ public class ToolChange : MonoBehaviour
 {
     public int SelectedTool = 0;
     private const int CLEANING_TOOL_COUNT = 4;
-    private const int MAX_TOOL_COUNT = CLEANING_TOOL_COUNT + 1; //5 herramientas en total si se recoge la llave
-    private const int MAX_TOOL_INDEX = MAX_TOOL_COUNT - 1; //índice máximo es 4  si no se ha recogido la llave 
+    private const int MAX_TOOL_COUNT = CLEANING_TOOL_COUNT + 1;
+    private const int MAX_TOOL_INDEX = MAX_TOOL_COUNT - 1;
     public const int KEY_TOOL_INDEX = 4;
 
     [SerializeField] private Animator handPivotAnimator;
 
-    //duración animación
     [SerializeField] private float hideDuration = 0.4f;
     [SerializeField] private float showDuration = 0.4f;
 
@@ -68,6 +67,30 @@ public class ToolChange : MonoBehaviour
             else
             {
                 SelectedTool--;
+            }
+        }
+
+        for (int i = 1; i <= MAX_TOOL_COUNT; i++)
+        {
+            
+            if (Input.GetKeyDown(KeyCode.Alpha0 + i))
+            {
+                int newToolIndex = i - 1; 
+
+                if (newToolIndex == KEY_TOOL_INDEX)
+                {
+                    if (ToolManager.Instance != null && ToolManager.Instance.HasKey)
+                    {
+                        SelectedTool = newToolIndex;
+                        break;
+                    }
+
+                }
+                else if (newToolIndex <= currentMaxIndex)
+                {
+                    SelectedTool = newToolIndex;
+                    break;
+                }
             }
         }
 

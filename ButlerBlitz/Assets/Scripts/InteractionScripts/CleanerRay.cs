@@ -55,15 +55,15 @@ public class CleanerRay : MonoBehaviour
             KeyPickup key = hit.transform.GetComponent<KeyPickup>();
             if (key != null)
             {
-                key.PickUp(); // Llama al método para recogerla
-                return; // Detiene la ejecución aquí para que no intente limpiar la llave
+                key.PickUp();
+                return; 
             }
 
             Door door = hit.transform.GetComponent<Door>();
             if (door != null)
             {
-                door.Interact(); // Llama al nuevo método Interact() de la puerta
-                return; // Detiene la ejecución
+                door.Interact();
+                return;
             }
 
             Stain stain = hit.transform.GetComponent<Stain>();
