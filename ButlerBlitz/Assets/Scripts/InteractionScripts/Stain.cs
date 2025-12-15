@@ -17,7 +17,7 @@ public class Stain : MonoBehaviour
     [SerializeField] private GameObject ParticleSystem;
 
     [SerializeField] private AudioClip sound;
-    private AudioSource cleanSound;
+    private AudioSource _audioSource;
 
     [Header("Zone")]
     public Zones.CurrentZone assignedZone = Zones.CurrentZone.Hall;
@@ -74,10 +74,9 @@ public class Stain : MonoBehaviour
             _zoneComponent.stainsInTheZone = Mathf.Max(0f, _zoneComponent.stainsInTheZone - 1f);
         }
 
-        // Reproducir sonido
-        if (cleanSound != null)
+        if (sound != null)
         {
-            cleanSound.Play();
+            AudioSource.PlayClipAtPoint(sound, transform.position);
         }
 
         if (ParticleSystem != null)
