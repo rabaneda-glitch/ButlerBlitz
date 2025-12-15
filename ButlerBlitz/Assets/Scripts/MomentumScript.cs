@@ -131,10 +131,13 @@ public class MomentumScript : MonoBehaviour
 
     }
 
-    void GameOver()
-    {
-        Debug.Log("❌ Momentum = 0 → Game Over");
-    }
+   void GameOver()
+{
+    if (GameManager.Instance != null)
+        GameManager.Instance.GameOver();
+}
+
+    
 
     public float GetMomentum() => qtyMmt;
 
