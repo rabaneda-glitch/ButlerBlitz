@@ -5,7 +5,7 @@ using UnityEngine;
 public class Stain : MonoBehaviour
 {
     public enum StainType { Mud, Dust, Grease, Water }
-    public StainType type = StainType.Mud; //por defecto
+    public StainType type = StainType.Mud;
 
     [Header("Destruir")]
     [SerializeField] public float destroyDelay = 0.5f;
@@ -17,7 +17,7 @@ public class Stain : MonoBehaviour
     [SerializeField] private GameObject ParticleSystem;
 
     [SerializeField] private AudioClip sound;
-    private AudioSource cleanSound;
+    private AudioSource _audioSource;
 
     [Header("Zone")]
     public Zones.CurrentZone assignedZone = Zones.CurrentZone.Hall;
@@ -49,7 +49,6 @@ public class Stain : MonoBehaviour
             bool correct = ToolManager.Instance.IsCorrectToolFor(this);
             if (!correct)
             {
-                Debug.Log($"Herramienta incorrecta para {type}");
                 return;
             }
         }
@@ -74,10 +73,9 @@ public class Stain : MonoBehaviour
             _zoneComponent.stainsInTheZone = Mathf.Max(0f, _zoneComponent.stainsInTheZone - 1f);
         }
 
-        // Reproducir sonido
-        if (cleanSound != null)
+        if (sound != null)
         {
-            cleanSound.Play();
+            AudioSource.PlayClipAtPoint(sound, transform.position);
         }
 
         if (ParticleSystem != null)

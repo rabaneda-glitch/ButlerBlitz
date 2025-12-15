@@ -24,9 +24,5 @@ public class KeyPickup : MonoBehaviour
             
             Destroy(gameObject);
         }
-        else
-        {
-            Debug.LogError("ToolManager no está inicializado o ToolChange no está asignado.");
-        }
     }
 }
