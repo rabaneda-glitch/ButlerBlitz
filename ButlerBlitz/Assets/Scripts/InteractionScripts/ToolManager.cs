@@ -4,13 +4,13 @@ public class ToolManager : MonoBehaviour
 {
     public static ToolManager Instance { get; private set; }
 
-    public enum Tool {Vacuum = 0, Sponge = 1, Duster = 2, Mop = 3}
+    public enum Tool { Vacuum = 0, Sponge = 1, Duster = 2, Mop = 3, Key = 4 }
 
     [Header("Referencias")]
     [SerializeField] public ToolChange toolChange;
 
     [Header("Inventario")]
-    public bool HasKey = false; // Estado lógico para si el jugador tiene la llave.
+    public bool HasKey = false;
 
     private Tool currentTool;
     public Tool CurrentTool => currentTool;
@@ -35,10 +35,7 @@ public class ToolManager : MonoBehaviour
         if (newTool != currentTool)
         {
             currentTool = newTool;
-            Debug.Log($"Herramienta actual: {currentTool}");
         }
-
-        HasKey = toolChange.IsKeyActive;
     }
 
     public bool IsCorrectToolFor(Stain stain)
@@ -54,11 +51,8 @@ public class ToolManager : MonoBehaviour
             _ => false
         };
     }
-
-    // NUEVA FUNCIÓN para verificar si se puede abrir una puerta.
     public bool CanOpenDoor()
     {
-        // La puerta se puede abrir si la llave está activa y en la mano.
-        return HasKey;
+        return currentTool == Tool.Key;
     }
 }

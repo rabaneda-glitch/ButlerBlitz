@@ -1,0 +1,157 @@
+{
+	"assetNamespace": "fab",
+	"listing":
+	{
+		"averageRating": 0,
+		"createdAt": "",
+		"description": "<p>This chandelier was made for Russian Estate House modular pack for UE4 to place it around the house. Free download is now available! Use it in your own projects with no restrictions.</p>",
+		"isAiForbidden": false,
+		"isAiGenerated": false,
+		"lastUpdatedAt": "2025-02-24T11:48:10.576873Z",
+		"listingType": "3d-model",
+		"media": "https://media.fab.com/image_previews/gallery_images/8c0591a5-f760-4312-9797-fe59089d6a86/0d86b306-da7a-4d54-b4e1-28843ad1647a.jpeg",
+		"publishedAt": "2024-10-05T02:54:10.589066Z",
+		"reviewCount": 0,
+		"thumbnail": "https://media.fab.com/image_previews/gallery_images/3b3d39d5-0a38-4032-a123-acdf09932129/7c301609-bea2-4604-b2a3-88cf281306fa.jpeg",
+		"title": "Chandelier",
+		"uid": "8205433d-52b5-40ae-add1-577e769655f5",
+		"updatedAt": "",
+		"user":
+		{
+			"coverImageUrl": "",
+			"profileImageUrl": "",
+			"sellerName": "Mikhail Kadilnikov",
+			"uid": "9056194a-8ba1-4a84-84c7-a933d9618bfd"
+		},
+		"tags": [
+			{
+				"name": "Antique",
+				"slug": "antique",
+				"uid": "05c128da-c923-4f5d-b84b-fde612ae6bd4"
+			},
+			{
+				"name": "Hang",
+				"slug": "hang",
+				"uid": "0fc05590-da71-415a-aae6-147c708600e9"
+			},
+			{
+				"name": "Russian",
+				"slug": "russian",
+				"uid": "2b852d33-9e89-49db-b85a-ae0a09afd38a"
+			},
+			{
+				"name": "Metal",
+				"slug": "metal",
+				"uid": "55165238-19a2-4184-85f1-e8650bd2a38d"
+			},
+			{
+				"name": "Chandelier",
+				"slug": "chandelier",
+				"uid": "57601ea3-311a-4bfc-8063-60c70601ce7f"
+			},
+			{
+				"name": "Project",
+				"slug": "project",
+				"uid": "5ac0fdf0-8ebc-4c36-bb2c-1a38d503c0a2"
+			},
+			{
+				"name": "Texture",
+				"slug": "texture",
+				"uid": "5b593e6b-86a7-405d-9f92-91ebd6f2a472"
+			},
+			{
+				"name": "House",
+				"slug": "house",
+				"uid": "6596d504-e433-42e9-a760-b829827af869"
+			},
+			{
+				"name": "Glass",
+				"slug": "glass",
+				"uid": "7735e020-15bd-4279-9114-f55d6f5b4396"
+			},
+			{
+				"name": "Hanging",
+				"slug": "hanging",
+				"uid": "8c298bae-c2ff-482a-bf56-f03e76a2c0ba"
+			},
+			{
+				"name": "Light",
+				"slug": "light",
+				"uid": "9ac7d3c8-eb97-4c82-bb75-ff5dcbf845c1"
+			},
+			{
+				"name": "Household",
+				"slug": "household",
+				"uid": "9b3023be-0953-419c-a3a9-743bd3e951ac"
+			},
+			{
+				"name": "Holder",
+				"slug": "holder",
+				"uid": "a8bb067e-48dd-450a-82a8-4bae64911155"
+			},
+			{
+				"name": "Lamp",
+				"slug": "lamp",
+				"uid": "d7b5e9ca-33f3-46fe-bed5-c2fb5d989087"
+			},
+			{
+				"name": "Brass",
+				"slug": "brass",
+				"uid": "e48221d1-6741-49db-abcb-d1e3e6300a72"
+			}
+		],
+		"category":
+		{
+			"name": "Ropa y accesorios",
+			"path": "clothing-accessories",
+			"slug": "clothing-accessories",
+			"uid": "3ab3b94c-a8f7-4214-b039-3e1364153f53"
+		},
+		"assetFormats": [
+			{
+				"assetFormatType":
+				{
+					"name": "OBJ",
+					"groupName": "Formatos de intercambio 3D",
+					"code": "obj",
+					"icon": "cube",
+					"extensions": [
+						"obj"
+					]
+				}
+			},
+			{
+				"assetFormatType":
+				{
+					"name": "Archivos convertidos",
+					"groupName": "",
+					"code": "converted-files",
+					"icon": "cube",
+					"extensions": [
+						"gltf",
+						"glb",
+						"usdz"
+					]
+				}
+			}
+		],
+		"_PluginMetas":
+		{
+			"apiDataVersion": "0.0.1",
+			"entitlementUid": "b86c8193-baed-4107-94c2-f0c74248120a",
+			"cacheSize": 0,
+			"downloaded": []
+		}
+	},
+	"target": "diskExport",
+	"quality": "",
+	"format": "obj",
+	"fileId": "c95faa8a-5e55-45ff-a0bf-24c057911fc6",
+	"platformIncluded": "",
+	"distributionPointBaseUrls": [],
+	"distributionMethod": "",
+	"entitlementUid": "b86c8193-baed-4107-94c2-f0c74248120a",
+	"invertedNormal": false,
+	"isConverted": false,
+	"isQuixel": false
+}

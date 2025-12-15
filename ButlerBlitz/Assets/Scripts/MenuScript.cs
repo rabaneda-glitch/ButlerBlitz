@@ -7,12 +7,14 @@ public class MenuScript : MonoBehaviour
 
     public enum MenuStates
     {
+        Splash,
         Main,
         Levels,
         Options,
         Credits,
     };
 
+    public GameObject splashMenu;
     public GameObject mainMenu;
     public GameObject levelMenu;
     public GameObject optionsMenu;
@@ -20,8 +22,9 @@ public class MenuScript : MonoBehaviour
 
     void Start()
     {
-        currentState = mainMenu;
-        mainMenu.SetActive(true);
+        currentState = splashMenu;
+        splashMenu.SetActive(true);
+        mainMenu.SetActive(false);
         levelMenu.SetActive(false);
         optionsMenu.SetActive(false);
         creditsMenu.SetActive(false);
@@ -30,6 +33,12 @@ public class MenuScript : MonoBehaviour
     public void back()
     {
         Debug.Log("back to main menu");
+        switchMenu(MenuStates.Main);
+    }
+
+    public void menu()
+    {
+        Debug.Log("go to menu");
         switchMenu(MenuStates.Main);
     }
 
@@ -63,6 +72,9 @@ public class MenuScript : MonoBehaviour
 
         switch (menu)
         {
+            case MenuStates.Splash:
+                newState = splashMenu;
+                break;
             case MenuStates.Main:
                 newState = mainMenu;
                 break;
@@ -90,24 +102,26 @@ public class MenuScript : MonoBehaviour
 
     void Update()
     {
-
-        if (Input.GetKey("return"))
+        if (splashMenu.activeSelf && Input.anyKeyDown && !Input.GetKeyDown(KeyCode.Escape))
         {
-            if (mainMenu.activeSelf)
-            {
-                switchMenu(MenuStates.Levels);
-            }
-            
+            menu();
         }
+
+        if (Input.GetKey("return") && mainMenu.activeSelf)
+        {
+            levels();
+        }
+            
         if (Input.GetKey("escape"))
         {
-            if (mainMenu.activeSelf)
+            if (mainMenu.activeSelf || splashMenu.activeSelf)
             {
                 Application.Quit();
+                Debug.Log("Saliendo del juego");
             }
             else
             {
-                switchMenu(MenuStates.Main);
+                menu();
             }
         }
     }
