@@ -53,7 +53,7 @@ public class MomentumScript : MonoBehaviour
         if (qtyMmt <= 0)
         {
             qtyMmt = 0;
-            SceneManager.LoadScene("GameOver");
+            //SceneManager.LoadScene("GameOver");
         }
         ActualMomentum = qtyMmt;
     }
