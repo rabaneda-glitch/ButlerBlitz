@@ -9,6 +9,18 @@ public class GameManager : MonoBehaviour
 
     bool isGameOver = false;
 
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+    }
+
+    public void Update()
+    {
+        Time.timeScale = 0f;
+
+    }
+
     void Awake()
     {
         if (Instance == null)
@@ -28,13 +40,13 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        //Time.timeScale = 1f;
         SceneManager.LoadScene("MovementButler");
+        Time.timeScale = 1f;
     }
 
     public void ExitToMenu()
     {
-        //Time.timeScale = 1f;
+        Time.timeScale = 1f;
         SceneManager.LoadScene("StartMenu");
     }
 }

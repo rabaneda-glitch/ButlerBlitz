@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MomentumScript : MonoBehaviour
 {
@@ -52,7 +53,7 @@ public class MomentumScript : MonoBehaviour
         if (qtyMmt <= 0)
         {
             qtyMmt = 0;
-            GameOver();
+            SceneManager.LoadScene("GameOver");
         }
         ActualMomentum = qtyMmt;
     }
@@ -130,14 +131,6 @@ public class MomentumScript : MonoBehaviour
             Debug.LogWarning("ScoreScript.Instance is not initialized.");
 
     }
-
-   void GameOver()
-{
-    if (GameManager.Instance != null)
-        GameManager.Instance.GameOver();
-}
-
-    
 
     public float GetMomentum() => qtyMmt;
 
