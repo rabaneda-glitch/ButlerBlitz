@@ -14,6 +14,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         enterMenu.SetActive(false);
         exitMenu.SetActive(false);
+        Time.timeScale = 1f;
     }
 
     void Update()

@@ -22,14 +22,22 @@ public class MenuScript : MonoBehaviour
 
     void Start()
     {
-        currentState = splashMenu;
-        splashMenu.SetActive(true);
+        splashMenu.SetActive(false);
         mainMenu.SetActive(false);
         levelMenu.SetActive(false);
         optionsMenu.SetActive(false);
         creditsMenu.SetActive(false);
-        switchMenu(MenuStates.Splash);
 
+        if (GameManager.CameFromGameOver)
+        {
+            currentState = mainMenu;
+            switchMenu(MenuStates.Main);
+        }
+        else
+        {
+            currentState = splashMenu;
+            switchMenu(MenuStates.Splash);
+        }
     }
 
     public void back()

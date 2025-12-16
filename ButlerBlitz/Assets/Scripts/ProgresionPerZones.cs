@@ -39,7 +39,6 @@ public class ProgresionPerZones : MonoBehaviour
 
     void Start()
     {
-        // Compatibilidad con versiones de Unity que no tienen FindObjectsByType:
         zoneComponents = UnityEngine.Object.FindObjectsByType<Zones>(FindObjectsSortMode.None);
 
         totalStainsPerZone.Clear();

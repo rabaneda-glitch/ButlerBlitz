@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverPanel;
 
     bool isGameOver = false;
+    public static bool CameFromGameOver = false;
 
     private void Start()
     {
@@ -18,7 +19,6 @@ public class GameManager : MonoBehaviour
     public void Update()
     {
         Time.timeScale = 0f;
-
     }
 
     void Awake()
@@ -34,12 +34,15 @@ public class GameManager : MonoBehaviour
         if (isGameOver) return;
 
         isGameOver = true;
+        CameFromGameOver = true;
+
         Time.timeScale = 0f;
         gameOverPanel.SetActive(true);
     }
 
     public void RestartGame()
     {
+        CameFromGameOver = true;
         SceneManager.LoadScene("MovementButler");
         Time.timeScale = 1f;
     }
@@ -47,6 +50,7 @@ public class GameManager : MonoBehaviour
     public void ExitToMenu()
     {
         Time.timeScale = 1f;
+        CameFromGameOver = true;
         SceneManager.LoadScene("StartMenu");
     }
 }
