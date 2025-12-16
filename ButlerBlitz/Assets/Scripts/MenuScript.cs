@@ -28,7 +28,7 @@ public class MenuScript : MonoBehaviour
         levelMenu.SetActive(false);
         optionsMenu.SetActive(false);
         creditsMenu.SetActive(false);
-        switchMenu(MenuStates.Main);
+        switchMenu(MenuStates.Splash);
 
     }
 
