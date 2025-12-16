@@ -6,8 +6,8 @@ public class PlayerCam : MonoBehaviour
 {
     private Camera _camera;
 
-    public float sensX;
-    public float sensY;
+    public float sensX = PlayerPrefs.GetFloat("MouseSensitivity");
+    public float sensY = PlayerPrefs.GetFloat("MouseSensitivity");
 
     public Transform orientation;
 
@@ -45,7 +45,7 @@ public class PlayerCam : MonoBehaviour
             crosshairVisible = true;
         }
 
-        //Info del ratón
+        //Info del ratï¿½n
         float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
         float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
 
@@ -53,7 +53,7 @@ public class PlayerCam : MonoBehaviour
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        //Rotación y orientación de cámara
+        //Rotaciï¿½n y orientaciï¿½n de cï¿½mara
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
     }
