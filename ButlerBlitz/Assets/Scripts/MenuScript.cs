@@ -58,11 +58,13 @@ public class MenuScript : MonoBehaviour
         Debug.Log("levels selected");
         switchMenu(MenuStates.Levels);
     }
+
     public void options()
     {
         Debug.Log("options selected");
         switchMenu(MenuStates.Options);
     }
+
     public void credits()
     {
         Debug.Log("credits selected");
@@ -75,7 +77,15 @@ public class MenuScript : MonoBehaviour
         SceneManager.LoadScene("MovementButler");
     }
 
-
+    public void quit()
+    {
+        Debug.Log("quitting game");
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
 
     public void switchMenu(MenuStates menu)
     {
@@ -145,7 +155,7 @@ public class MenuScript : MonoBehaviour
         {
             levels();
         }
-            
+
         if (Input.GetKey("escape"))
         {
             if (mainMenu.activeSelf || splashMenu.activeSelf)
