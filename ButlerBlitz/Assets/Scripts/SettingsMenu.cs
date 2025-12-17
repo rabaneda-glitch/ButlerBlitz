@@ -21,4 +21,5 @@ public class SettingsMenu : MonoBehaviour
         PlayerPrefs.SetFloat("MouseSensitivity", sensitivity);
         Debug.Log("Mouse Sensitivity set to: " + sensitivity);
     }
+    
 }

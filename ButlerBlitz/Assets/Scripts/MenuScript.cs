@@ -74,7 +74,7 @@ public class MenuScript : MonoBehaviour
     public void levelOne()
     {
         Debug.Log("level 1 selected");
-        SceneManager.LoadScene("MovementButler");
+        SceneManager.LoadScene("StartAnimatic");
     }
 
     public void quit()

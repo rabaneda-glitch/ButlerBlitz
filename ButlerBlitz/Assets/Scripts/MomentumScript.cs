@@ -52,8 +52,8 @@ public class MomentumScript : MonoBehaviour
 
         if (qtyMmt <= 0)
         {
-            qtyMmt = 0;
-            //SceneManager.LoadScene("GameOver");
+            //qtyMmt = 0;
+            SceneManager.LoadScene("GameOver");
         }
         ActualMomentum = qtyMmt;
     }
@@ -79,11 +79,7 @@ public class MomentumScript : MonoBehaviour
                 isInRange90To100 = false; // Salimos del rango
             }
         }
-        totalTimeInRange90To100 = 10f; //////////////////CAMBIAR PARA PRUEBAS
-        //////////////////////////////////////////////////
-        ///         //////////////////////////////////////////////////
-        ///         //////////////////////////////////////////////////
-        ///         //////////////////////////////////////////////////
+        
         return totalTimeInRange90To100;
     }
 

@@ -41,13 +41,8 @@ public class ScoreScript : MonoBehaviour
 
     public float CalcScore()
     {
-        //score = pointsScore + AddTime();
-                //////////////////////////////////////////////////
-                ///         //////////////////////////////////////////////////
-                /// 
-                /// CAMBIO TEMPORAL PARA PRUEBAS
-                /// 
-        score = 2000;
+        score = pointsScore + AddTime();
+                
         return score;
     }
     public string GetScoreString()

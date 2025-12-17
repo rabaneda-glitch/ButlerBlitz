@@ -13,7 +13,7 @@ public class Timer : MonoBehaviour
     public TextMeshProUGUI TimerText;
     public float timer = 60;
 
-     void Awake()
+    void Awake()
     {
         if (Instance == null)
             Instance = this;
@@ -21,22 +21,21 @@ public class Timer : MonoBehaviour
             Destroy(gameObject);
     }
 
-void Update()
-{
-    timer -= Time.deltaTime;
-    TimerText.text = timer.ToString("f0");
-
-    if (timer <= 0)
+    void Update()
     {
-        timer = 0;
-        TimerText.text = "0";
+        timer -= Time.deltaTime;
+        TimerText.text = timer.ToString("f0");
 
-        SceneManager.LoadScene("GameOver");
+        if (timer <= 0)
+        {
+            timer = 0;
+            TimerText.text = "0";
 
-        enabled = false;
+            SceneManager.LoadScene("GameOver");
+
+            enabled = false;
+        }
     }
-}
 
     public float GetTimeLeft() => timer;
-
 }

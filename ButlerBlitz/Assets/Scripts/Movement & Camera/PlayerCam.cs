@@ -6,8 +6,8 @@ public class PlayerCam : MonoBehaviour
 {
     private Camera _camera;
 
-    public float sensX = PlayerPrefs.GetFloat("MouseSensitivity");
-    public float sensY = PlayerPrefs.GetFloat("MouseSensitivity");
+    private float sensX;
+    private float sensY;
 
     public Transform orientation;
 
@@ -18,7 +18,8 @@ public class PlayerCam : MonoBehaviour
     public bool pause;
 
     [Header("Crosshair")]
-    [SerializeField] private Texture2D crosshair;
+    [SerializeField]
+    private Texture2D crosshair;
 
     private bool crosshairVisible = true;
 
@@ -30,7 +31,14 @@ public class PlayerCam : MonoBehaviour
 
     void Update()
     {
-        pause = (pauseMenuScript != null && pauseMenuScript.pauseMenu != null && pauseMenuScript.pauseMenu.activeSelf);
+        pause = (
+            pauseMenuScript != null
+            && pauseMenuScript.pauseMenu != null
+            && pauseMenuScript.pauseMenu.activeSelf
+        );
+        sensX = PlayerPrefs.GetFloat("MouseSensitivity");
+        sensY = PlayerPrefs.GetFloat("MouseSensitivity");
+        Debug.Log("Current Sensitivity: " + PlayerPrefs.GetFloat("MouseSensitivity"));
 
         if (pause == true)
         {
@@ -60,7 +68,8 @@ public class PlayerCam : MonoBehaviour
 
     void OnGUI()
     {
-        if (crosshair == null || !crosshairVisible) return;
+        if (crosshair == null || !crosshairVisible)
+            return;
 
         int size = 32;
         float posX = (_camera.pixelWidth - size) / 2;
@@ -68,4 +77,3 @@ public class PlayerCam : MonoBehaviour
         GUI.Label(new Rect(posX, posY, size, size), crosshair);
     }
 }
-

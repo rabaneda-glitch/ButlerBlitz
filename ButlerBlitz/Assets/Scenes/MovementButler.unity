@@ -10066,8 +10066,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a25c50e2f60528f40b05cd55e16616e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensX: 50
-  sensY: 50
   orientation: {fileID: 1622132577}
   pause: 0
   crosshair: {fileID: 2800000, guid: 17d0f32f9e2be6a4fbc2883d791cd639, type: 3}
@@ -92589,7 +92587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99c4a71e43efff3439c30e8175cdcfd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  qtyMmt: 10
+  qtyMmt: 50
   decrAlto: 10
   decrBajo: 2.5
   mmtMinimo: 2
@@ -136793,7 +136791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimerText: {fileID: 1246453388}
-  timer: 60
+  timer: 120
 --- !u!4 &2016355021
 Transform:
   m_ObjectHideFlags: 0
