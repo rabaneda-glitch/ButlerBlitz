@@ -7,12 +7,18 @@ public class MomentumScript : MonoBehaviour
     public static MomentumScript Instance; // Singleton simple
 
     [Header("Cantidad Inicial")]
-    [SerializeField] float qtyMmt = 10f;
+    [SerializeField]
+    float qtyMmt = 10f;
 
     [Header("Decrecimiento")]
-    [SerializeField] float decrAlto = 5f;
-    [SerializeField] float decrBajo = 2.5f;
-    [SerializeField] float mmtMinimo = 2f;
+    [SerializeField]
+    float decrAlto = 5f;
+
+    [SerializeField]
+    float decrBajo = 2.5f;
+
+    [SerializeField]
+    float mmtMinimo = 2f;
 
     [Header("Niveles de aumento")]
     public float bajoMmt = 10f;
@@ -21,11 +27,12 @@ public class MomentumScript : MonoBehaviour
     public float mAltoMmt = 40f;
     public float comboMmt = 15f;
 
-
     bool isDecreasing = true;
-    [NonSerialized] public bool isWalking = false;
+
+    [NonSerialized]
+    public bool isWalking = false;
     float ultimoNivel = 0f,
-    decr;
+        decr;
     public float ActualMomentum;
 
     private float timeInRange = 0f;
@@ -52,7 +59,8 @@ public class MomentumScript : MonoBehaviour
 
         if (qtyMmt <= 0)
         {
-            //qtyMmt = 0;
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
             SceneManager.LoadScene("GameOver");
         }
         ActualMomentum = qtyMmt;
@@ -79,7 +87,7 @@ public class MomentumScript : MonoBehaviour
                 isInRange90To100 = false; // Salimos del rango
             }
         }
-        
+
         return totalTimeInRange90To100;
     }
 
@@ -92,7 +100,6 @@ public class MomentumScript : MonoBehaviour
             if (qtyMmt <= mmtMinimo)
             {
                 qtyMmt = mmtMinimo;
-
             }
         }
         else
@@ -103,7 +110,6 @@ public class MomentumScript : MonoBehaviour
                 qtyMmt = 0;
             }
         }
-
     }
 
     public void Aumentar(float nivel)
@@ -125,14 +131,9 @@ public class MomentumScript : MonoBehaviour
             ScoreScript.Instance.AddPoints(nivel);
         else
             Debug.LogWarning("ScoreScript.Instance is not initialized.");
-
     }
 
     public float GetMomentum() => qtyMmt;
 
     public float GetTotalTimeInRange90To100() => totalTimeInRange90To100;
 }
-
-
-
-

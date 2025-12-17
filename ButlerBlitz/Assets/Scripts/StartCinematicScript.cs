@@ -28,6 +28,9 @@ public class StartCinematicScript : MonoBehaviour
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+
         currentFrame = frames[menuState];
 
         foreach (var frame in frames)

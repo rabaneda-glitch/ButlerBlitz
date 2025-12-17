@@ -18,6 +18,7 @@ public class ScoreScript : MonoBehaviour
             Destroy(gameObject);
     }
 
+
     public void AddPoints(float points)
     {
         pointsScore += points * 100;
