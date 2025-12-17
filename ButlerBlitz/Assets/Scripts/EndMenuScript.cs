@@ -6,6 +6,7 @@ public class EndMenuScript : MonoBehaviour
 {
     public TextMeshProUGUI textScore;
     string scoreString = "";
+    public static bool CameFromGameWon = false;
 
     void Start()
     {
@@ -15,6 +16,7 @@ public class EndMenuScript : MonoBehaviour
     public void Continue()
     {
         SceneManager.LoadScene("StartMenu");
+        CameFromGameWon = true;
     }
 
     void Update()
@@ -27,7 +29,7 @@ public class EndMenuScript : MonoBehaviour
         // Acciones de entrada
         if (Input.GetKey("return") || Input.GetKey("escape"))
         {
-            SceneManager.LoadScene("StartMenu");
+            Continue();
         }
     }
 

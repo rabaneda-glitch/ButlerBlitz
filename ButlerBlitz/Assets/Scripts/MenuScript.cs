@@ -29,7 +29,7 @@ public class MenuScript : MonoBehaviour
         optionsMenu.SetActive(false);
         creditsMenu.SetActive(false);
 
-        if (GameManager.CameFromGameOver || PauseMenu.CameFromGame)
+        if (GameManager.CameFromGameOver || PauseMenu.CameFromGame || EndMenuScript.CameFromGameWon)
         {
             currentState = mainMenu;
             switchMenu(MenuStates.Main);
