@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class MenuScript : MonoBehaviour
 {
     private GameObject currentState;
+    private Coroutine splashTimerCoroutine;
 
     public enum MenuStates
     {
@@ -28,7 +29,7 @@ public class MenuScript : MonoBehaviour
         optionsMenu.SetActive(false);
         creditsMenu.SetActive(false);
 
-        if (GameManager.CameFromGameOver)
+        if (GameManager.CameFromGameOver || PauseMenu.CameFromGame)
         {
             currentState = mainMenu;
             switchMenu(MenuStates.Main);
@@ -106,8 +107,31 @@ public class MenuScript : MonoBehaviour
         if (currentState != null)
             currentState.SetActive(false);
 
+        if (splashTimerCoroutine != null)
+        {
+            StopCoroutine(splashTimerCoroutine);
+            splashTimerCoroutine = null;
+        }
+
         currentState = newState;
         currentState.SetActive(true);
+
+        if (currentState == splashMenu && !GameManager.CameFromGameOver && !PauseMenu.CameFromGame)
+        {
+            splashTimerCoroutine = StartCoroutine(SplashTimer());
+        }
+    }
+
+    private System.Collections.IEnumerator SplashTimer()
+    {
+        yield return new WaitForSeconds(10f);
+
+        if (splashMenu != null && splashMenu.activeSelf)
+        {
+            menu();
+        }
+
+        splashTimerCoroutine = null;
     }
 
     void Update()

@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
-using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
@@ -30,8 +31,7 @@ void Update()
         timer = 0;
         TimerText.text = "0";
 
-        if (GameManager.Instance != null)
-            GameManager.Instance.GameOver();
+        SceneManager.LoadScene("GameOver");
 
         enabled = false;
     }

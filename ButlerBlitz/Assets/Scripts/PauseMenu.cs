@@ -9,6 +9,8 @@ public class PauseMenu : MonoBehaviour
     public GameObject exitMenu;
     public KeyCode pauseKey = KeyCode.Escape;
 
+    public static bool CameFromGame = false;
+
     void Start()
     {
         pauseMenu.SetActive(false);
@@ -37,6 +39,7 @@ public class PauseMenu : MonoBehaviour
     public void Menu(string StartMenu)
     {
         SceneManager.LoadScene(StartMenu);
+        CameFromGame = true;
         Time.timeScale = 1f;
     }
 
