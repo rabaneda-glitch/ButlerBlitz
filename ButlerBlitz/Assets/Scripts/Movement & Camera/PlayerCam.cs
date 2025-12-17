@@ -36,9 +36,18 @@ public class PlayerCam : MonoBehaviour
             && pauseMenuScript.pauseMenu != null
             && pauseMenuScript.pauseMenu.activeSelf
         );
-        sensX = PlayerPrefs.GetFloat("MouseSensitivity");
-        sensY = PlayerPrefs.GetFloat("MouseSensitivity");
-        Debug.Log("Current Sensitivity: " + PlayerPrefs.GetFloat("MouseSensitivity"));
+
+        // Sensibilidad del ratón
+        if (PlayerPrefs.HasKey("MouseSensitivity"))
+        {
+            sensX = PlayerPrefs.GetFloat("MouseSensitivity");
+            sensY = PlayerPrefs.GetFloat("MouseSensitivity");
+        }
+        else
+        {
+            sensX = 250f;
+            sensY = 250f;
+        }
 
         if (pause == true)
         {
