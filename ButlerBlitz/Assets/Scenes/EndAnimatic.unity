@@ -1147,8 +1147,8 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  nextSceneName: MovementButler
-  nextButton: {fileID: 0}
+  nextSceneName: EndMenu
+  nextButton: {fileID: 694659602}
 --- !u!1 &2042916394
 GameObject:
   m_ObjectHideFlags: 0

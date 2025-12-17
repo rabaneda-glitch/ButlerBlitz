@@ -30,7 +30,7 @@ public class Progresion : MonoBehaviour
         loadingImage.fillAmount = loadingProgress;
         if (stainsCleaned >= stainsTotal)
         {
-            SceneManager.LoadScene("EndMenu");
+            SceneManager.LoadScene("EndAnimatic");
         }
        
     }

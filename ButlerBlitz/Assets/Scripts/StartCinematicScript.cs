@@ -65,7 +65,7 @@ public class StartCinematicScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene("MovementButler");
+            SceneManager.LoadScene(nextSceneName);
         }
 
         if (currentFrame.hasMovement)
