@@ -354,7 +354,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 223, y: 19}
-  m_SizeDelta: {x: 381.0944, y: 40.4688}
+  m_SizeDelta: {x: 500, y: 40.4688}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &748646800
 MonoBehaviour:
@@ -378,8 +378,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Tu puntuaci\xF3n es de:"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f390b027885d1d248970f5e7fc6a49f9, type: 2}
+  m_sharedMaterial: {fileID: 2119444255342912793, guid: f390b027885d1d248970f5e7fc6a49f9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -403,13 +403,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
-  m_fontSizeBase: 40
+  m_fontSize: 45
+  m_fontSizeBase: 45
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
