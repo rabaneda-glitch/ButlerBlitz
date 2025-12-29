@@ -21,7 +21,9 @@ public class KeyPickup : MonoBehaviour
            tc.StartCoroutine(tc.ChangeToolAnimated(previousTool));
 
             hasBeenPickedUp = true;
-            
+
+            KeyTextManager.Instance.ShowTemporaryMessage("Llave para la biblioteca obtenida", 2f);
+
             Destroy(gameObject);
         }
     }

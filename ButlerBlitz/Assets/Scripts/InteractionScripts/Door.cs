@@ -32,6 +32,10 @@ public class Door : MonoBehaviour
         {
             OperateDoor();
         }
+        else
+        {
+            KeyTextManager.Instance.ShowTemporaryMessage("Necesitas la llave de la biblioteca", 1.5f);
+        }
     }
 
     private void OperateDoor()
