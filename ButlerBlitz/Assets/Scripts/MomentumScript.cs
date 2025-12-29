@@ -29,6 +29,8 @@ public class MomentumScript : MonoBehaviour
 
     bool isDecreasing = true;
 
+    public bool momentumIsOn = false;
+
     [NonSerialized]
     public bool isWalking = false;
     float ultimoNivel = 0f,
@@ -52,10 +54,8 @@ public class MomentumScript : MonoBehaviour
     {
         highRange();
 
-        if (isDecreasing)
-            qtyMmt -= decr * Time.deltaTime;
-
-        Decrecer();
+        if (momentumIsOn)
+            Decrecer();
 
         if (qtyMmt <= 0)
         {
@@ -93,6 +93,9 @@ public class MomentumScript : MonoBehaviour
 
     void Decrecer()
     {
+        if (isDecreasing)
+            qtyMmt -= decr * Time.deltaTime;
+            
         if (isWalking)
         {
             decr = decrBajo;

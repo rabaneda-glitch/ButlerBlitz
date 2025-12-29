@@ -214,6 +214,7 @@ public class PlayerMovement : MonoBehaviour
             if (Mathf.Abs(horizontalInput) > 0.1f || Mathf.Abs(verticalInput) > 0.1f)
             {
                 MomentumScript.Instance.isWalking = true;
+                MomentumScript.Instance.momentumIsOn = true;
             }
             else
             {
@@ -382,7 +383,7 @@ public class PlayerMovement : MonoBehaviour
         if (zone != null)
         {
             currentZone = zone.zone;
-            Debug.Log($"Entró en zona: {currentZone}");
+            Debug.Log($"Entrï¿½ en zona: {currentZone}");
         }
     }
 
@@ -392,7 +393,7 @@ public class PlayerMovement : MonoBehaviour
         if (zone != null && currentZone == zone.zone)
         {
             currentZone = Zones.CurrentZone.Hall;
-            Debug.Log($"Salió de zona: {zone.zone}");
+            Debug.Log($"Saliï¿½ de zona: {zone.zone}");
         }
     }
 }
