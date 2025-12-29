@@ -4,6 +4,9 @@ using System.Collections;
 public class KeyPickup : MonoBehaviour
 {
     private bool hasBeenPickedUp = false;
+
+    [Header("Audio")]
+    [SerializeField] private AudioClip pickupSound;
     public void PickUp()
     {
         if (hasBeenPickedUp) return;
@@ -13,6 +16,11 @@ public class KeyPickup : MonoBehaviour
             ToolChange tc = ToolManager.Instance.toolChange;
 
             ToolManager.Instance.HasKey = true;
+
+            if (pickupSound != null)
+            {
+                AudioSource.PlayClipAtPoint(pickupSound, transform.position);
+            }
 
             int previousTool = tc.SelectedTool;
 
