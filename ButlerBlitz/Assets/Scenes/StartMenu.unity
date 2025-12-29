@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 06ac78a1f0c378446892371746b52e94, type: 2}
+  volumeSlider: {fileID: 0}
 --- !u!224 &22636150
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6050,7 +6051,7 @@ AudioSource:
   m_GameObject: {fileID: 1709446051}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: fd6b43aab7996fa449f0e70d8e705deb, type: 2}
   m_audioClip: {fileID: 8300000, guid: af1b4f06a5c42bf4f812451b354bfd2c, type: 3}
   m_Resource: {fileID: 8300000, guid: af1b4f06a5c42bf4f812451b354bfd2c, type: 3}
   m_PlayOnAwake: 1
@@ -6724,6 +6725,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1958814077}
   - component: {fileID: 1958814078}
+  - component: {fileID: 1958814079}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -6797,14 +6799,14 @@ MonoBehaviour:
   m_FillRect: {fileID: 378243499}
   m_HandleRect: {fileID: 829846104}
   m_Direction: 0
-  m_MinValue: -80
-  m_MaxValue: 0
+  m_MinValue: 0.001
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: -26.7
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 22636149}
+      - m_Target: {fileID: 1958814079}
         m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
         m_MethodName: SetVolume
         m_Mode: 0
@@ -6816,6 +6818,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1958814079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958814076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2cfee4946a280240952670fe20f259d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: fd6b43aab7996fa449f0e70d8e705deb, type: 2}
+  volumeSlider: {fileID: 1958814078}
 --- !u!1 &1973167990
 GameObject:
   m_ObjectHideFlags: 0
