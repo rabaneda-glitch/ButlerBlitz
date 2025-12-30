@@ -22,8 +22,6 @@ public class KeyTextManager : MonoBehaviour
 
         Instance = this;
     }
-
-    // ---------- TEXTO RECOGER LLAVE ----------
     public void ShowKeyText(string text)
     {
         if (keyText == null) return;
@@ -39,7 +37,6 @@ public class KeyTextManager : MonoBehaviour
         keyText.gameObject.SetActive(false);
     }
 
-    // ---------- MENSAJE TEMPORAL ----------
     public void ShowTemporaryMessage(string text, float duration)
     {
         if (messageText == null) return;
