@@ -30,7 +30,7 @@ public class KeyPickup : MonoBehaviour
 
             hasBeenPickedUp = true;
 
-            KeyTextManager.Instance.ShowTemporaryMessage("Llave para la biblioteca obtenida", 2f);
+            KeyTextManager.Instance.ShowTemporaryMessage("Llave para la biblioteca obtenida", 1.5f);
 
             Destroy(gameObject);
         }
