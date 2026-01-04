@@ -8,9 +8,14 @@ public class Door : MonoBehaviour
 
     private Collider doorCollider;
 
+    [Header("Audio Settings")]
+    [SerializeField] private AudioClip openSound;
+    private AudioSource audioSource;
+
     void Start()
     {
         anims = GetComponentsInChildren<Animator>();
+        audioSource = GetComponent<AudioSource>();
 
         if (anims.Length == 0)
         {
@@ -32,6 +37,10 @@ public class Door : MonoBehaviour
         {
             OperateDoor();
         }
+        else
+        {
+            KeyTextManager.Instance.ShowTemporaryMessage("Necesitas la llave de la biblioteca", 1.5f);
+        }
     }
 
     private void OperateDoor()
@@ -39,6 +48,11 @@ public class Door : MonoBehaviour
         if (anims == null || anims.Length == 0) return;
 
         open = !open;
+
+        if (open && openSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(openSound);
+        }
 
         foreach (Animator a in anims)
         {

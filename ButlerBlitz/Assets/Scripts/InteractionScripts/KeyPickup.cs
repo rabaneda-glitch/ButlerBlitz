@@ -4,6 +4,9 @@ using System.Collections;
 public class KeyPickup : MonoBehaviour
 {
     private bool hasBeenPickedUp = false;
+
+    [Header("Audio")]
+    [SerializeField] private AudioClip pickupSound;
     public void PickUp()
     {
         if (hasBeenPickedUp) return;
@@ -14,6 +17,11 @@ public class KeyPickup : MonoBehaviour
 
             ToolManager.Instance.HasKey = true;
 
+            if (pickupSound != null)
+            {
+                AudioSource.PlayClipAtPoint(pickupSound, transform.position);
+            }
+
             int previousTool = tc.SelectedTool;
 
            tc.SelectedTool = ToolChange.KEY_TOOL_INDEX;
@@ -21,7 +29,9 @@ public class KeyPickup : MonoBehaviour
            tc.StartCoroutine(tc.ChangeToolAnimated(previousTool));
 
             hasBeenPickedUp = true;
-            
+
+            KeyTextManager.Instance.ShowTemporaryMessage("Llave para la biblioteca obtenida", 1.5f);
+
             Destroy(gameObject);
         }
     }

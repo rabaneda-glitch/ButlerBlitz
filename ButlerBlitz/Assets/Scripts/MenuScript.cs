@@ -13,6 +13,7 @@ public class MenuScript : MonoBehaviour
         Levels,
         Options,
         Credits,
+        Controls,
     };
 
     public GameObject splashMenu;
@@ -20,6 +21,7 @@ public class MenuScript : MonoBehaviour
     public GameObject levelMenu;
     public GameObject optionsMenu;
     public GameObject creditsMenu;
+    public GameObject controlsMenu;
 
     void Start()
     {
@@ -28,8 +30,9 @@ public class MenuScript : MonoBehaviour
         levelMenu.SetActive(false);
         optionsMenu.SetActive(false);
         creditsMenu.SetActive(false);
+        controlsMenu.SetActive(false);
 
-        if (GameManager.CameFromGameOver || PauseMenu.CameFromGame)
+        if (GameManager.CameFromGameOver || PauseMenu.CameFromGame || EndMenuScript.CameFromGameWon)
         {
             currentState = mainMenu;
             switchMenu(MenuStates.Main);
@@ -71,10 +74,16 @@ public class MenuScript : MonoBehaviour
         switchMenu(MenuStates.Credits);
     }
 
+    public void controls()
+    {
+        Debug.Log("controls selected");
+        switchMenu(MenuStates.Controls);
+    }
+
     public void levelOne()
     {
         Debug.Log("level 1 selected");
-        SceneManager.LoadScene("MovementButler");
+        SceneManager.LoadScene("StartAnimatic");
     }
 
     public void quit()
@@ -107,6 +116,9 @@ public class MenuScript : MonoBehaviour
                 break;
             case MenuStates.Credits:
                 newState = creditsMenu;
+                break;
+            case MenuStates.Controls:
+                newState = controlsMenu;
                 break;
             default:
                 newState = mainMenu;

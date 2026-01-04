@@ -18,6 +18,7 @@ public class ScoreScript : MonoBehaviour
             Destroy(gameObject);
     }
 
+
     public void AddPoints(float points)
     {
         pointsScore += points * 100;
@@ -41,13 +42,8 @@ public class ScoreScript : MonoBehaviour
 
     public float CalcScore()
     {
-        //score = pointsScore + AddTime();
-                //////////////////////////////////////////////////
-                ///         //////////////////////////////////////////////////
-                /// 
-                /// CAMBIO TEMPORAL PARA PRUEBAS
-                /// 
-        score = 2000;
+        score = pointsScore + AddTime();
+                
         return score;
     }
     public string GetScoreString()

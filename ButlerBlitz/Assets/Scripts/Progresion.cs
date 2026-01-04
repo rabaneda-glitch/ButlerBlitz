@@ -30,7 +30,9 @@ public class Progresion : MonoBehaviour
         loadingImage.fillAmount = loadingProgress;
         if (stainsCleaned >= stainsTotal)
         {
-            SceneManager.LoadScene("EndMenu");
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+            SceneManager.LoadScene("EndAnimatic");
         }
        
     }
