@@ -30,11 +30,6 @@ public class Timer : MonoBehaviour
         {
             timer = 0;
             TimerText.text = "0";
-            Cursor.lockState = CursorLockMode.Confined;
-            Cursor.visible = true;
-            SceneManager.LoadScene("GameOver");
-
-            enabled = false;
         }
     }
 
