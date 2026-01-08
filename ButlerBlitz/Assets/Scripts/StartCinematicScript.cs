@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections; 
 
 [System.Serializable]
 public class CinematicFrame
@@ -19,12 +20,14 @@ public class CinematicFrame
 public class StartCinematicScript : MonoBehaviour
 {
     public int menuState = 0;
-
     public CinematicFrame[] frames;
 
     private CinematicFrame currentFrame;
     public string nextSceneName;
     public Button nextButton;
+
+    [SerializeField] private GameObject loadingScreen; 
+    private bool isLoading = false;                    
 
     void Start()
     {
@@ -37,19 +40,25 @@ public class StartCinematicScript : MonoBehaviour
             frame.image.SetActive(false);
 
         currentFrame.image.SetActive(true);
+
+       
+        if (loadingScreen != null)
+            loadingScreen.SetActive(false);
     }
 
     public void next()
     {
+        if (isLoading) return; 
+
         menuState++;
 
         if (menuState >= frames.Length)
         {
-            SceneManager.LoadScene(nextSceneName);
+            LoadNextScene();  
+            return;           
         }
 
         switchFrame(menuState);
-
         EventSystem.current.SetSelectedGameObject(null);
     }
 
@@ -63,36 +72,59 @@ public class StartCinematicScript : MonoBehaviour
 
     void Update()
     {
+        if (isLoading) return; 
+
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
             next();
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene(nextSceneName);
+            LoadNextScene(); 
+            return;
         }
 
         if (currentFrame.hasMovement)
         {
             RectTransform imageRT = currentFrame.image.GetComponent<RectTransform>();
-            float imageHeight = imageRT.rect.height;
+            float imageHeight = imageRT.rect.height; 
             float positionY = currentFrame.image.transform.position.y;
             Debug.Log("positionY: " + positionY);
 
             if (currentFrame.goesUp && positionY < currentFrame.targetYPosition)
             {
-                //Debug.Log("positionY: " + positionY);
                 currentFrame.image.transform.Translate(
                     Vector3.up * currentFrame.speed * Time.deltaTime
                 );
             }
 
-            if (currentFrame.goesDown & positionY > currentFrame.targetYPosition)
+            
+            if (currentFrame.goesDown && positionY > currentFrame.targetYPosition) 
             {
-                //Debug.Log("positionY: " + positionY);
                 currentFrame.image.transform.Translate(
                     Vector3.down * currentFrame.speed * Time.deltaTime
                 );
             }
         }
+    }
+
+    private void LoadNextScene()
+    {
+        if (isLoading) return;
+        isLoading = true;
+        StartCoroutine(LoadAsync(nextSceneName));
+    }
+
+    private IEnumerator LoadAsync(string sceneName)
+    {
+        if (loadingScreen != null)
+            loadingScreen.SetActive(true);
+
+       
+        yield return null;
+
+        AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
+
+        while (!op.isDone)
+            yield return null;
     }
 }
