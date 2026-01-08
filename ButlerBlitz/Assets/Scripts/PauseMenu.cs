@@ -6,19 +6,16 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenu;
     public GameObject enterMenu;
-    public GameObject controlsMenu;
-    public GameObject optionsMenu;
+    public GameObject exitMenu;
     public KeyCode pauseKey = KeyCode.Escape;
 
     public static bool CameFromGame = false;
-
 
     void Start()
     {
         pauseMenu.SetActive(false);
         enterMenu.SetActive(false);
-        controlsMenu.SetActive(false);
-        optionsMenu.SetActive(false);
+        exitMenu.SetActive(false);
         Time.timeScale = 1f;
     }
 
@@ -46,14 +43,14 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    public void Controls()
+    public void Exit()
     {
-        controlsMenu.SetActive(true);
-    }
+        Debug.Log("quitting game");
 
-    public void Options()
-    {
-        optionsMenu.SetActive(true);
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
     }
-
 }

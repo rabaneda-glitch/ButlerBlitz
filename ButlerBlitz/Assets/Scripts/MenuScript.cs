@@ -168,12 +168,11 @@ public class MenuScript : MonoBehaviour
             levels();
         }
 
-        if (Input.GetKeyDown("escape"))
+        if (Input.GetKey("escape"))
         {
             if (mainMenu.activeSelf || splashMenu.activeSelf)
             {
                 Application.Quit();
-                quit();
                 Debug.Log("Saliendo del juego");
             }
             else
