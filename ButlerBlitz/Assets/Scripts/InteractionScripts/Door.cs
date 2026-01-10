@@ -39,7 +39,7 @@ public class Door : MonoBehaviour
         }
         else
         {
-            KeyTextManager.Instance.ShowTemporaryMessage("Necesitas la llave de la biblioteca", 1.5f);
+            KeyTextManager.Instance.ShowTemporaryMessage("Necesitas la llave de la biblioteca", 3f);
         }
     }
 
