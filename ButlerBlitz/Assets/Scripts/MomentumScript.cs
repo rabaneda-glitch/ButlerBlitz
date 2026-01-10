@@ -8,7 +8,7 @@ public class MomentumScript : MonoBehaviour
 
     [Header("Cantidad Inicial")]
     [SerializeField]
-    float qtyMmt = 10f;
+    public float qtyMmt = 10f;
 
     [Header("Decrecimiento")]
     [SerializeField]
@@ -43,7 +43,6 @@ public class MomentumScript : MonoBehaviour
 
     void Awake()
     {
-        // Asegurar una sola instancia
         if (Instance == null)
             Instance = this;
         else
@@ -57,12 +56,6 @@ public class MomentumScript : MonoBehaviour
         if (momentumIsOn)
             Decrecer();
 
-        if (qtyMmt <= 0)
-        {
-            Cursor.lockState = CursorLockMode.Confined;
-            Cursor.visible = true;
-            SceneManager.LoadScene("GameOver");
-        }
         ActualMomentum = qtyMmt;
     }
 
@@ -73,18 +66,17 @@ public class MomentumScript : MonoBehaviour
             if (!isInRange90To100)
             {
                 isInRange90To100 = true;
-                timeInRange = 0f; // Reseteamos el contador cuando entramos en el rango
+                timeInRange = 0f;
             }
-            timeInRange += Time.deltaTime; // Contamos el tiempo mientras estamos en el rango
+            timeInRange += Time.deltaTime; 
         }
         else
         {
-            // Solo sumamos al tiempo total si hemos estado dentro del rango previamente
             if (isInRange90To100)
             {
-                totalTimeInRange90To100 += timeInRange; // Acumulamos el tiempo
-                timeInRange = 0f; // Reset del tiempo actual
-                isInRange90To100 = false; // Salimos del rango
+                totalTimeInRange90To100 += timeInRange; 
+                timeInRange = 0f;
+                isInRange90To100 = false;
             }
         }
 

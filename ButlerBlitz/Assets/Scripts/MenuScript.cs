@@ -168,7 +168,7 @@ public class MenuScript : MonoBehaviour
             levels();
         }
 
-        if (Input.GetKey("escape"))
+        if (Input.GetKeyDown("escape"))
         {
             if (mainMenu.activeSelf || splashMenu.activeSelf)
             {

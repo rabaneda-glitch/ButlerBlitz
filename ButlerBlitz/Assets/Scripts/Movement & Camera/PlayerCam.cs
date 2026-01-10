@@ -21,7 +21,7 @@ public class PlayerCam : MonoBehaviour
     [SerializeField]
     private Texture2D crosshair;
 
-    private bool crosshairVisible = true;
+    public bool crosshairVisible = true;
 
     void Start()
     {
@@ -62,7 +62,7 @@ public class PlayerCam : MonoBehaviour
             crosshairVisible = true;
         }
 
-        //Info del rat�n
+        //Info del ratón
         float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
         float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
 
@@ -70,7 +70,7 @@ public class PlayerCam : MonoBehaviour
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        //Rotaci�n y orientaci�n de c�mara
+        //Rotación y orientación de cámara
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
     }
