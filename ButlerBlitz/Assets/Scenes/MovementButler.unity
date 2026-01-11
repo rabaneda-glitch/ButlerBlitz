@@ -2014,7 +2014,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 0b1713b86afa665458f2143ab63c99e3, type: 3}
   m_Resource: {fileID: 8300000, guid: 0b1713b86afa665458f2143ab63c99e3, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.3
+  m_Volume: 0.22
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2929,6 +2929,19 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2846404037906057363, guid: 78df1db2fbc8ec64f949fac0c05bf693, type: 3}
   m_PrefabInstance: {fileID: 1503918746}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &124707078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 124707065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bdc4b609c4f7794f883b1c22999eeed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRange: 7
 --- !u!1 &125797363
 GameObject:
   m_ObjectHideFlags: 0
@@ -10763,6 +10776,7 @@ MonoBehaviour:
   orientation: {fileID: 1622132577}
   pause: 0
   crosshair: {fileID: 2800000, guid: 17d0f32f9e2be6a4fbc2883d791cd639, type: 3}
+  crosshairVisible: 1
 --- !u!1001 &430777532
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -98776,7 +98790,6 @@ GameObject:
   m_Component:
   - component: {fileID: 698925580}
   - component: {fileID: 698925581}
-  - component: {fileID: 698925582}
   m_Layer: 0
   m_Name: ZoneProgresionScript
   m_TagString: Untagged
@@ -98825,19 +98838,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 4ec82513e8ca26c4e88a14e2eb98ff5b, type: 3}
   - {fileID: 21300000, guid: e4fbf39a794392d479b3178818dcab48, type: 3}
   - {fileID: 21300000, guid: ad1499b3bcd1a9c4fa56bf2618398ac7, type: 3}
---- !u!114 &698925582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 698925579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bdc4b609c4f7794f883b1c22999eeed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textDuration: 3
 --- !u!1001 &700984437
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -124827,6 +124827,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 158093975980897620, guid: 78df1db2fbc8ec64f949fac0c05bf693, type: 3}
       insertIndex: -1
       addedObject: {fileID: 124707070}
+    - targetCorrespondingSourceObject: {fileID: 158093975980897620, guid: 78df1db2fbc8ec64f949fac0c05bf693, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 124707078}
   m_SourcePrefab: {fileID: 100100000, guid: 78df1db2fbc8ec64f949fac0c05bf693, type: 3}
 --- !u!1 &1504075596
 GameObject:

@@ -3,41 +3,69 @@ using UnityEngine;
 public class kitchenKeyText : MonoBehaviour
 {
     private PlayerMovement player;
-    private Zones.CurrentZone lastZone;
 
-    [SerializeField] private float textDuration = 3f;
+    [Header("Configuración de Distancia")]
+    [SerializeField] private float detectionRange = 2.5f;
+
+    private bool isTextShowing = false;
+    private bool keyPickedUp = false;
 
     private void Start()
     {
         player = FindFirstObjectByType<PlayerMovement>();
-        lastZone = player != null ? player.currentZone : Zones.CurrentZone.Hall;
     }
 
     private void Update()
     {
-        if (player == null || ToolManager.Instance == null) return;
+        if (keyPickedUp || player == null || ToolManager.Instance == null) return;
 
-        var currentZone = player.currentZone;
-
-        if (currentZone != lastZone && currentZone == Zones.CurrentZone.Kitchen)
+        if (ToolManager.Instance.HasKey)
         {
-            if (!ToolManager.Instance.HasKey)
-            {
-                KeyTextManager.Instance.ShowKeyText(
-                    "Coge la llave de la biblioteca"
-                );
-
-                CancelInvoke(nameof(HideKeyText));
-                Invoke(nameof(HideKeyText), textDuration);
-            }
+            OnKeyCollected();
+            return;
         }
 
-        lastZone = currentZone;
+        float distance = Vector3.Distance(transform.position, player.transform.position);
+
+        if (distance <= detectionRange)
+        {
+            if (!isTextShowing) ShowKeyText();
+        }
+        else
+        {
+            if (isTextShowing) HideKeyText();
+        }
+    }
+
+    private void ShowKeyText()
+    {
+        if (KeyTextManager.Instance != null)
+        {
+            KeyTextManager.Instance.ShowKeyText("Coge la llave de la biblioteca");
+            isTextShowing = true;
+        }
     }
 
     private void HideKeyText()
     {
         if (KeyTextManager.Instance != null)
+        {
             KeyTextManager.Instance.HideKeyText();
+            isTextShowing = false;
+        }
+    }
+    private void OnKeyCollected()
+    {
+        keyPickedUp = true;
+        HideKeyText();
+
+        this.enabled = false;
+
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, detectionRange);
     }
 }
