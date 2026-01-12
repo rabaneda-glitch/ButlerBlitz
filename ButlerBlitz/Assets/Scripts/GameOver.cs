@@ -56,8 +56,6 @@ public class GameOver : MonoBehaviour
 
         if (timer.timer <= 0 || momentumScript.qtyMmt <= 0)
         {
-
-            Cursor.visible = false;
             camMain.enabled = false;
             camSec.enabled = true;
 
@@ -73,9 +71,6 @@ public class GameOver : MonoBehaviour
             {
                 canvasGroup.alpha = 0f;
             }
-
-            Cursor.lockState = CursorLockMode.Confined;
-            Cursor.visible = true;
 
             if (gameOverCam != null && gameOverCam.HasVisitedAll)
             {

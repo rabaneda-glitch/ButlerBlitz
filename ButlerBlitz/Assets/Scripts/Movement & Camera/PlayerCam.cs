@@ -15,6 +15,8 @@ public class PlayerCam : MonoBehaviour
     float yRotation;
 
     private PauseMenu pauseMenuScript;
+    private Timer timer;
+    private MomentumScript momentumScript;
     public bool pause;
 
     [Header("Crosshair")]
@@ -27,6 +29,8 @@ public class PlayerCam : MonoBehaviour
     {
         _camera = GetComponent<Camera>();
         pauseMenuScript = Object.FindFirstObjectByType<PauseMenu>();
+        timer = UnityEngine.Object.FindFirstObjectByType<Timer>();
+        momentumScript = UnityEngine.Object.FindFirstObjectByType<MomentumScript>();
     }
 
     void Update()
@@ -49,7 +53,7 @@ public class PlayerCam : MonoBehaviour
             sensY = 250f;
         }
 
-        if (pause == true)
+        if (pause == true || timer.timer <= 0 || momentumScript.qtyMmt <= 0)
         {
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;

@@ -161,7 +161,6 @@ public class GameOverCam : MonoBehaviour
         MarkVisited(currentViewIndex);
     }
 
-    // Asegura que visitedIndices exista y tenga el tamaño correcto
     private void EnsureVisitedArray()
     {
         if (views == null)
@@ -172,7 +171,6 @@ public class GameOverCam : MonoBehaviour
             bool[] old = visitedIndices;
             visitedIndices = new bool[views.Length];
 
-            // Si existía un array antiguo, intentar conservar marcas por InstanceID coincidentes
             if (old != null && old.Length > 0)
             {
                 int copyCount = Mathf.Min(old.Length, visitedIndices.Length);
@@ -180,7 +178,6 @@ public class GameOverCam : MonoBehaviour
                     visitedIndices[i] = old[i];
             }
 
-            // Recalcular visitedCount
             visitedCount = visitedIndices.Count(b => b);
             hasVisitedAll = (views.Length > 0) && (visitedCount >= views.Length);
         }
