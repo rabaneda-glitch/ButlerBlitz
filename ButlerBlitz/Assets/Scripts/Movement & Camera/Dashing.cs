@@ -74,6 +74,7 @@ public class Dashing : MonoBehaviour
 
         if (MomentumScript.Instance != null)
         {
+            MomentumScript.Instance.momentumIsOn = true;
             MomentumScript.Instance.Aumentar(MomentumScript.Instance.medioMmt);
             Debug.Log("Dash: +20 momentum");
         }
