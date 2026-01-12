@@ -90,10 +90,11 @@ public class StartCinematicScript : MonoBehaviour
             float positionY = currentFrame.image.transform.position.y;
             Debug.Log("positionY: " + positionY);
 
+            // Usar tiempo no escalado para que la animación siga aunque Time.timeScale == 0
             if (currentFrame.goesUp && positionY < currentFrame.targetYPosition)
             {
                 currentFrame.image.transform.Translate(
-                    Vector3.up * currentFrame.speed * Time.deltaTime
+                    Vector3.up * currentFrame.speed * Time.unscaledDeltaTime
                 );
             }
 
@@ -101,7 +102,7 @@ public class StartCinematicScript : MonoBehaviour
             if (currentFrame.goesDown && positionY > currentFrame.targetYPosition) 
             {
                 currentFrame.image.transform.Translate(
-                    Vector3.down * currentFrame.speed * Time.deltaTime
+                    Vector3.down * currentFrame.speed * Time.unscaledDeltaTime
                 );
             }
         }
