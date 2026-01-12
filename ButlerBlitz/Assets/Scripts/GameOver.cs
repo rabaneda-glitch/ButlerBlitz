@@ -14,7 +14,8 @@ public class GameOver : MonoBehaviour
     public GameObject NPCCocina;
     public GameObject NPCHabitación;
     public GameObject NPCBiblioteca;
-    public GameObject Canvas;
+    public GameObject CanvasInterface;
+    public GameObject CanvasButtons;
 
     public Camera camMain;
     public Camera camSec;
@@ -28,6 +29,8 @@ public class GameOver : MonoBehaviour
         momentumScript = UnityEngine.Object.FindFirstObjectByType<MomentumScript>();
         gameOverCam = UnityEngine.Object.FindFirstObjectByType<GameOverCam>();
         pauseMenuScript = Object.FindFirstObjectByType<PauseMenu>();
+
+        CanvasButtons.SetActive(false);
 
         camMain.enabled = true;
         camSec.enabled = false;
@@ -63,8 +66,9 @@ public class GameOver : MonoBehaviour
             NPCCocina.SetActive(false);
             NPCHabitación.SetActive(false);
             NPCBiblioteca.SetActive(false);
-            
-            var canvasGroup = Canvas.GetComponent<CanvasGroup>();
+            CanvasButtons.SetActive(true);
+
+            var canvasGroup = CanvasInterface.GetComponent<CanvasGroup>();
             if (canvasGroup != null)
             {
                 canvasGroup.alpha = 0f;
@@ -79,6 +83,11 @@ public class GameOver : MonoBehaviour
                     StartCoroutine(LoadGameOverAfterDelay());
             }
         }
+    }
+
+    public void SkipToGameOver(string GameOver)
+    {
+        SceneManager.LoadScene(GameOver);
     }
 
     private IEnumerator LoadGameOverAfterDelay()

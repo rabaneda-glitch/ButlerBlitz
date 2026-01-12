@@ -137,4 +137,65 @@ public class GameOverCam : MonoBehaviour
         hasVisitedAll = false;
     }
 
+    public void NextViewManual()
+    {
+        if (views == null || views.Length == 0) return;
+
+        currentViewIndex = (currentViewIndex + 1) % views.Length;
+        currentView = views[currentViewIndex];
+        viewTimer = 0f;
+
+        EnsureVisitedArray();
+        MarkVisited(currentViewIndex);
+    }
+
+    public void PreviousViewManual()
+    {
+        if (views == null || views.Length == 0) return;
+
+        currentViewIndex = (currentViewIndex - 1 + views.Length) % views.Length;
+        currentView = views[currentViewIndex];
+        viewTimer = 0f;
+
+        EnsureVisitedArray();
+        MarkVisited(currentViewIndex);
+    }
+
+    // Asegura que visitedIndices exista y tenga el tamaño correcto
+    private void EnsureVisitedArray()
+    {
+        if (views == null)
+            return;
+
+        if (visitedIndices == null || visitedIndices.Length != views.Length)
+        {
+            bool[] old = visitedIndices;
+            visitedIndices = new bool[views.Length];
+
+            // Si existía un array antiguo, intentar conservar marcas por InstanceID coincidentes
+            if (old != null && old.Length > 0)
+            {
+                int copyCount = Mathf.Min(old.Length, visitedIndices.Length);
+                for (int i = 0; i < copyCount; i++)
+                    visitedIndices[i] = old[i];
+            }
+
+            // Recalcular visitedCount
+            visitedCount = visitedIndices.Count(b => b);
+            hasVisitedAll = (views.Length > 0) && (visitedCount >= views.Length);
+        }
+    }
+
+    private void MarkVisited(int idx)
+    {
+        if (visitedIndices == null || idx < 0 || idx >= visitedIndices.Length) return;
+
+        if (!visitedIndices[idx])
+        {
+            visitedIndices[idx] = true;
+            visitedCount++;
+        }
+
+        hasVisitedAll = (views != null && visitedCount >= views.Length);
+    }
 }
